@@ -3,21 +3,28 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://sam-ma.github.io/archives/</loc>
+    <loc>https://www.shenyan.me/kotlin/hugo-kotlin-example/</loc>
+    <lastmod>2018-06-22T21:41:35+10:00</lastmod>
   </url>
   
   <url>
-    <loc>https://sam-ma.github.io/categories/</loc>
+    <loc>https://www.shenyan.me/kotlin/</loc>
+    <lastmod>2018-06-13T21:07:13+10:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.shenyan.me/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://sam-ma.github.io/</loc>
+    <loc>https://www.shenyan.me/</loc>
+    <lastmod>2018-06-22T21:41:35+10:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://sam-ma.github.io/tags/</loc>
+    <loc>https://www.shenyan.me/tags/</loc>
     <priority>0</priority>
   </url>
   

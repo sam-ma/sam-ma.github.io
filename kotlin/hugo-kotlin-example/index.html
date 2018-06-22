@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>Hugo Kotlin Shortcodes Example</title>
+	
+	<meta name="description" content="">
+	<meta name="image" content="">
+	
+	<meta itemprop="name" content="Hugo Kotlin Shortcodes Example">
+	<meta itemprop="description" content="">
+	<meta itemprop="image" content="">
+	
+	<meta name="og:title" content="Hugo Kotlin Shortcodes Example">
+	<meta name="og:description" content="">
+	
+	<meta name="og:url" content="https://www.shenyan.me/kotlin/hugo-kotlin-example/">
+	<meta name="og:site_name" content="Hugo Kotlin Shortcodes Example">
+	<meta name="og:type" content="article">
+	
+	<meta name="article:tag" content="">
+	<link rel="stylesheet" type="text/css" href="https://www.shenyan.me/css/style.css">
+	
+	
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-120740855-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	<script src="https://unpkg.com/kotlin-playground@1" data-selector=".kotlin-code"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/kotlin.min.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+<body>
+
+<header>
+	
+	<a href="https://www.shenyan.me/" style="float: left;color:#777;"><strong>Home</strong></a>
+	
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	
+	
+	
+	<a href="https://www.shenyan.me/index.xml" style="color:#777;float: right;"><strong><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></strong></a>
+</header>
+
+
+<div id="loadingMask" style="width: 100%; height: 100%; position: fixed; background: #fff;"></div>
+<script>
+function fadeOut(el) {
+  el.style.opacity = 1;
+
+  var last = +new Date();
+  var tick = function() {
+    el.style.opacity = +el.style.opacity - (new Date() - last) / 80;
+    last = +new Date();
+    
+
+    if (el.style.opacity > 0) {
+      (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+    } else {
+      el.style.display='none';
+    }
+  };
+
+  tick();
+}
+
+function ready(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+         el = document.getElementById('loadingMask');
+         fadeOut(el);
+        var elements = document.querySelectorAll("img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("alt")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("alt"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+
+    } else {
+        document.addEventListener('DOMContentLoaded', fn);
+    }
+}
+window.onload = ready;
+</script>
+
+<div class="content">
+  <h1>Hugo Kotlin Shortcodes Example <aside></aside></h1>
+  <p><a href="https://github.com/sam-ma/hugo-shortcodes">https://github.com/sam-ma/hugo-shortcodes</a></p>
+
+<div class="kotlin-code" 
+     
+    data-target-platform="java"
+    
+     >
+    <pre>
+        <code class="hljs language-kotlin">
+        
+class Contact(val id: Int, var email: String) 
+
+fun main(args: Array&lt;String&gt;) {
+    val contact = Contact(1, &#34;mary@gmail.com&#34;)
+    println(contact.id)                   
+}
+
+        </code>
+    </pre>
+</div>
+
+
+<div class="kotlin-code" 
+    theme="idea" 
+    data-target-platform="java"
+    
+    data-highlight-only >
+    <pre>
+        <code class="hljs language-kotlin">
+        
+fun main(args: Array&lt;String&gt;) {
+    println(&#34;Hello World!&#34;)
+}
+
+        </code>
+    </pre>
+</div>
+
+
+<div class="kotlin-code" 
+    theme="darcula" 
+    data-target-platform="java"
+    
+    data-highlight-only >
+    <pre>
+        <code class="hljs language-kotlin">
+        
+fun main(args: Array&lt;String&gt;) {
+    println(&#34;Hello World!&#34;)
+}
+
+        </code>
+    </pre>
+</div>
+
+
+<div class="kotlin-code" 
+     
+    data-target-platform="js"
+    
+     >
+    <pre>
+        <code class="hljs language-kotlin">
+        
+fun sum(a: Int, b: Int): Int {
+    return a + b
+}
+
+fun main(args: Array&lt;String&gt;) {
+    print(sum(-1, 8))
+}
+
+        </code>
+    </pre>
+</div>
+
+
+<div class="kotlin-code" 
+     
+    data-target-platform="junit"
+    
+     >
+    <pre>
+        <code class="hljs language-kotlin">
+        
+import org.junit.Test
+import org.junit.Assert
+
+class TestExtensionFunctions() {
+    @Test fun testIntExtension() {
+        Assert.assertEquals(&#34;Rational number creation error: &#34;, RationalNumber(4, 1), 4.r())
+    }
+
+    @Test fun testPairExtension() {
+        Assert.assertEquals(&#34;Rational number creation error: &#34;, RationalNumber(2, 3), Pair(2, 3).r())
+    }
+}
+//sampleStart
+/*
+Then implement extension functions Int.r() and Pair.r() and make them convert Int and Pair to RationalNumber.
+*/
+fun Int.r(): RationalNumber = RationalNumber(this, 2)
+fun Pair&lt;Int, Int&gt;.r(): RationalNumber = RationalNumber(first, second)
+
+data class RationalNumber(val numerator: Int, val denominator: Int)
+//sampleEnd
+
+        </code>
+    </pre>
+</div>
+
+
+<p><div class="kotlin-code" 
+     
+    data-target-platform="junit"
+    folded-button="false"
+     >
+    <pre>
+        <code class="hljs language-kotlin">
+        
+import org.junit.Test
+import org.junit.Assert
+
+class TestContainsFunctions() {
+    @Test fun contains() {
+        Assert.assertTrue(containsEven(listOf(1, 2, 3, 4)));
+    }
+    @Test fun notContains() {
+        Assert.assertFalse(containsEven(listOf(1, 3, 5)));
+    }
+}
+//sampleStart
+/*
+Pass a lambda to any function to check if the collection contains an even number.
+The function any gets a predicate as an argument and returns true if there is at least one element satisfying the predicate.
+*/
+fun containsEven(collection: Collection&lt;Int&gt;): Boolean = collection.any {[mark]TODO()[/mark]}
+//sampleEnd
+
+        </code>
+    </pre>
+</div>
+</p>
+
+<p><div class="kotlin-code" 
+     
+    data-target-platform="canvas"
+    
+     >
+    <pre>
+        <code class="hljs language-kotlin">
+        
+package fancylines
+
+
+import jquery.*
+import org.w3c.dom.CanvasRenderingContext2D
+import org.w3c.dom.HTMLCanvasElement
+import kotlin.browser.document
+import kotlin.browser.window
+import kotlin.js.Math
+
+
+
+val canvas = initalizeCanvas()
+fun initalizeCanvas(): HTMLCanvasElement {
+    val canvas = document.createElement(&#34;canvas&#34;) as HTMLCanvasElement
+    val context = canvas.getContext(&#34;2d&#34;) as CanvasRenderingContext2D
+    context.canvas.width  = window.innerWidth.toInt();
+    context.canvas.height = window.innerHeight.toInt();
+    document.body!!.appendChild(canvas)
+    return canvas
+}
+
+class FancyLines() {
+    val context = canvas.getContext(&#34;2d&#34;) as CanvasRenderingContext2D
+    val height = canvas.height
+    val width = canvas.width
+    var x = width * Math.random()
+    var y = height * Math.random()
+    var hue = 0;
+
+    fun line() {
+        context.save();
+
+        context.beginPath();
+
+        context.lineWidth = 20.0 * Math.random();
+        context.moveTo(x, y);
+
+        x = width * Math.random();
+        y = height * Math.random();
+
+        context.bezierCurveTo(width * Math.random(), height * Math.random(),
+                width * Math.random(), height * Math.random(), x, y);
+
+        hue += (Math.random() * 10).toInt();
+
+        context.strokeStyle = &#34;hsl($hue, 50%, 50%)&#34;;
+
+        context.shadowColor = &#34;white&#34;;
+        context.shadowBlur = 10.0;
+
+        context.stroke();
+
+        context.restore();
+    }
+
+    fun blank() {
+        context.fillStyle = &#34;rgba(255,255,1,0.1)&#34;;
+        context.fillRect(0.0, 0.0, width.toDouble(), height.toDouble());
+    }
+
+    fun run() {
+        window.setInterval({ line() }, 40);
+        window.setInterval({ blank() }, 100);
+    }
+}
+//sampleStart
+fun main(args: Array&lt;String&gt;) {
+    FancyLines().run()
+}
+//sampleEnd
+
+        </code>
+    </pre>
+</div>
+</p>
+
+<p><div class="kotlin-code" 
+    theme="darcula" 
+    data-target-platform="java"
+    
+     >
+    <pre>
+        <code class="hljs language-kotlin">
+        
+//sampleStart
+fun sum(a: Int, b: Int): Int {
+    return a + b
+}
+//sampleEnd
+
+fun main(args: Array&lt;String&gt;) {
+    print(sum(-1, 8))
+}
+
+        </code>
+    </pre>
+</div>
+</p>
+
+<p>See also:</p>
+
+<p><a href="https://jetbrains.github.io/kotlin-playground/examples/">https://jetbrains.github.io/kotlin-playground/examples/</a></p>
+
+</div>
+
+
+
+
+<footer>
+	<p>© 2018, all rights reserved.</a>
+</footer>
+</body>
+</html>
+

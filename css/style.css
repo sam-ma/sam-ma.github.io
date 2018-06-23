@@ -192,7 +192,6 @@ a {
 	transition-duration: 0.2s;
 }
 
-
 div.nav a:active div { 
 	background: #cacaca;
 }

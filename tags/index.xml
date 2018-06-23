@@ -6,9 +6,37 @@
     <description>Recent content in Tags on Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <lastBuildDate>Fri, 22 Jun 2018 21:41:35 +1000</lastBuildDate>
     
         <atom:link href="https://www.shenyan.me/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Example</title>
+      <link>https://www.shenyan.me/tags/example/</link>
+      <pubDate>Fri, 22 Jun 2018 21:41:35 +1000</pubDate>
+      
+      <guid>https://www.shenyan.me/tags/example/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hugo</title>
+      <link>https://www.shenyan.me/tags/hugo/</link>
+      <pubDate>Fri, 22 Jun 2018 21:41:35 +1000</pubDate>
+      
+      <guid>https://www.shenyan.me/tags/hugo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Kotlin</title>
+      <link>https://www.shenyan.me/tags/kotlin/</link>
+      <pubDate>Fri, 22 Jun 2018 21:41:35 +1000</pubDate>
+      
+      <guid>https://www.shenyan.me/tags/kotlin/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>

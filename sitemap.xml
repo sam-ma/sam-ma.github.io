@@ -8,12 +8,17 @@
   </url>
   
   <url>
-    <loc>https://www.shenyan.me/kotlin/</loc>
-    <lastmod>2018-06-13T21:07:13+10:00</lastmod>
+    <loc>https://www.shenyan.me/archives/</loc>
   </url>
   
   <url>
     <loc>https://www.shenyan.me/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.shenyan.me/tags/example/</loc>
+    <lastmod>2018-06-22T21:41:35+10:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -24,7 +29,26 @@
   </url>
   
   <url>
+    <loc>https://www.shenyan.me/tags/hugo/</loc>
+    <lastmod>2018-06-22T21:41:35+10:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.shenyan.me/tags/kotlin/</loc>
+    <lastmod>2018-06-22T21:41:35+10:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.shenyan.me/kotlin/</loc>
+    <lastmod>2018-06-22T21:41:35+10:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://www.shenyan.me/tags/</loc>
+    <lastmod>2018-06-22T21:41:35+10:00</lastmod>
     <priority>0</priority>
   </url>
   

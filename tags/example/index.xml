@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Kotlins on Home</title>
-    <link>https://www.shenyan.me/kotlin/</link>
-    <description>Recent content in Kotlins on Home</description>
+    <title>Example on Home</title>
+    <link>https://www.shenyan.me/tags/example/</link>
+    <description>Recent content in Example on Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 22 Jun 2018 21:41:35 +1000</lastBuildDate>
     
-        <atom:link href="https://www.shenyan.me/kotlin/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://www.shenyan.me/tags/example/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>

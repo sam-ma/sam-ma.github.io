@@ -6,10 +6,92 @@
     <description>Recent content on Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 22 Jun 2018 21:41:35 +1000</lastBuildDate>
+    <lastBuildDate>Sat, 23 Jun 2018 21:41:08 +1000</lastBuildDate>
     
         <atom:link href="https://www.shenyan.me/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>curl: (23) Failed writing body</title>
+      <link>https://www.shenyan.me/other/curl-23-failed-writing-body/</link>
+      <pubDate>Sat, 23 Jun 2018 21:41:08 +1000</pubDate>
+      
+      <guid>https://www.shenyan.me/other/curl-23-failed-writing-body/</guid>
+      <description>
+
+&lt;p&gt;I was trying to get the first few lines of a large CSV file (144M) by piping the &lt;code&gt;curl&lt;/code&gt; and &lt;code&gt;head&lt;/code&gt; command as shown below. However, it didn&amp;rsquo;t work as expected. No file content was displayed but the progress meter.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ curl -LO http://burntsushi.net/stuff/worldcitiespop.csv | head
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   194  100   194    0     0    153      0  0:00:01  0:00:01 --:--:--   153
+100  144M  100  144M    0     0   514k      0  0:04:47  0:04:47 --:--:--  908k
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Due to the &lt;code&gt;-O&lt;/code&gt; option the output was written to a local file rather than stdout.&lt;/p&gt;
+
+&lt;p&gt;Btw, &lt;code&gt;-L&lt;/code&gt; tells &lt;code&gt;curl&lt;/code&gt; to follow redirections.&lt;/p&gt;
+
+&lt;p&gt;Replacing &lt;code&gt;-O&lt;/code&gt; with &lt;code&gt;-sS&lt;/code&gt; solved the above problem. However, another issue appeared. This time &lt;code&gt;curl: (23) Failed writing body&lt;/code&gt; error was shown at the bottm.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ curl -LsS http://burntsushi.net/stuff/worldcitiespop.csv | head
+Country,City,AccentCity,Region,Population,Latitude,Longitude
+ad,aixas,Aixàs,06,,42.4833333,1.4666667
+ad,aixirivali,Aixirivali,06,,42.4666667,1.5
+ad,aixirivall,Aixirivall,06,,42.4666667,1.5
+ad,aixirvall,Aixirvall,06,,42.4666667,1.5
+ad,aixovall,Aixovall,06,,42.4666667,1.4833333
+ad,andorra,Andorra,07,,42.5,1.5166667
+ad,andorra la vella,Andorra la Vella,07,20430,42.5,1.5166667
+ad,andorra-vieille,Andorra-Vieille,07,,42.5,1.5166667
+ad,andorre,Andorre,07,,42.5,1.5166667
+curl: (23) Failed writing body (0 != 16384)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;span style=&#34;color:blue&#34;&gt;&lt;strong&gt;Looks like it&amp;rsquo;s because the piped &lt;code&gt;head&lt;/code&gt; closed the read pipe before &lt;code&gt;curl&lt;/code&gt; finished writing output.&lt;/strong&gt;&lt;/span&gt; Someone suggested to add &lt;code&gt;-N&lt;/code&gt; to disable buffer. Unfortunately, it still didn&amp;rsquo;t work :(&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ curl -LsSN http://burntsushi.net/stuff/worldcitiespop.csv | head
+Country,City,AccentCity,Region,Population,Latitude,Longitude
+ad,aixas,Aixàs,06,,42.4833333,1.4666667
+ad,aixirivali,Aixirivali,06,,42.4666667,1.5
+ad,aixirivall,Aixirivall,06,,42.4666667,1.5
+ad,aixirvall,Aixirvall,06,,42.4666667,1.5
+ad,aixovall,Aixovall,06,,42.4666667,1.4833333
+ad,andorra,Andorra,07,,42.5,1.5166667
+ad,andorra la vella,Andorra la Vella,07,20430,42.5,1.5166667
+ad,andorra-vieille,Andorra-Vieille,07,,42.5,1.5166667
+ad,andorre,Andorre,07,,42.5,1.5166667
+curl: (23) Failed writing body (0 != 16384)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Removing &lt;code&gt;-S&lt;/code&gt; seems to work &amp;ldquo;&lt;del&gt;perfectly&lt;/del&gt;&amp;rdquo;. However, it just suppressed the error message. But that&amp;rsquo;s enough for my case :)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ curl -LsN http://burntsushi.net/stuff/worldcitiespop.csv | head
+Country,City,AccentCity,Region,Population,Latitude,Longitude
+ad,aixas,Aixàs,06,,42.4833333,1.4666667
+ad,aixirivali,Aixirivali,06,,42.4666667,1.5
+ad,aixirivall,Aixirivall,06,,42.4666667,1.5
+ad,aixirvall,Aixirvall,06,,42.4666667,1.5
+ad,aixovall,Aixovall,06,,42.4666667,1.4833333
+ad,andorra,Andorra,07,,42.5,1.5166667
+ad,andorra la vella,Andorra la Vella,07,20430,4
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;sample-csv&#34;&gt;Sample CSV:&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;1. &lt;a href=&#34;http://burntsushi.net/stuff/worldcitiespop.csv&#34;&gt;worldcitiespop.csv&lt;/a&gt; from &lt;a href=&#34;https://github.com/BurntSushi/xsv&#34;&gt;https://github.com/BurntSushi/xsv&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;2. &lt;a href=&#34;http://samplecsvs.s3.amazonaws.com/Sacramentorealestatetransactions.csv&#34;&gt;Sacramentorealestatetransactions.csv&lt;/a&gt; from &lt;a href=&#34;https://support.spatialkey.com/spatialkey-sample-csv-data/&#34;&gt;https://support.spatialkey.com/spatialkey-sample-csv-data/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;reference&#34;&gt;Reference:&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;1. &lt;a href=&#34;https://stackoverflow.com/questions/16703647/why-curl-return-and-error-23-failed-writing-body&#34;&gt;Stackoverflow related question&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;2. &lt;a href=&#34;https://curl.haxx.se/docs/manpage.html&#34;&gt;curl man page&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>Hugo Kotlin Shortcodes Example</title>
@@ -17,7 +99,9 @@
       <pubDate>Fri, 22 Jun 2018 21:41:35 +1000</pubDate>
       
       <guid>https://www.shenyan.me/kotlin/hugo-kotlin-example/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/sam-ma/hugo-shortcodes&#34;&gt;https://github.com/sam-ma/hugo-shortcodes&lt;/a&gt;&lt;/p&gt;
+      <description>&lt;p&gt;This is the live demo page for the &lt;code&gt;{{&amp;lt; kotlin &amp;gt;}}&lt;/code&gt; hugo shortcode&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/sam-ma/hugo-shortcodes&#34;&gt;https://github.com/sam-ma/hugo-shortcodes&lt;/a&gt;&lt;/p&gt;
 
 &lt;div class=&#34;kotlin-code&#34; 
      

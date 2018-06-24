@@ -3,8 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://www.shenyan.me/other/curl-23-failed-writing-body/</loc>
+    <lastmod>2018-06-24T21:30:08+10:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://www.shenyan.me/kotlin/hugo-kotlin-example/</loc>
-    <lastmod>2018-06-22T21:41:35+10:00</lastmod>
+    <lastmod>2018-06-24T21:25:35+10:00</lastmod>
   </url>
   
   <url>
@@ -17,38 +22,56 @@
   </url>
   
   <url>
+    <loc>https://www.shenyan.me/tags/curl/</loc>
+    <lastmod>2018-06-24T21:30:08+10:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://www.shenyan.me/tags/example/</loc>
-    <lastmod>2018-06-22T21:41:35+10:00</lastmod>
+    <lastmod>2018-06-24T21:25:35+10:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://www.shenyan.me/</loc>
-    <lastmod>2018-06-22T21:41:35+10:00</lastmod>
+    <lastmod>2018-06-24T21:30:08+10:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://www.shenyan.me/tags/hugo/</loc>
-    <lastmod>2018-06-22T21:41:35+10:00</lastmod>
+    <lastmod>2018-06-24T21:25:35+10:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://www.shenyan.me/tags/kotlin/</loc>
-    <lastmod>2018-06-22T21:41:35+10:00</lastmod>
+    <lastmod>2018-06-24T21:25:35+10:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://www.shenyan.me/kotlin/</loc>
-    <lastmod>2018-06-22T21:41:35+10:00</lastmod>
+    <lastmod>2018-06-24T21:25:35+10:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.shenyan.me/tags/other/</loc>
+    <lastmod>2018-06-24T21:30:08+10:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.shenyan.me/other/</loc>
+    <lastmod>2018-06-24T21:30:08+10:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://www.shenyan.me/tags/</loc>
-    <lastmod>2018-06-22T21:41:35+10:00</lastmod>
+    <lastmod>2018-06-24T21:30:08+10:00</lastmod>
     <priority>0</priority>
   </url>
   

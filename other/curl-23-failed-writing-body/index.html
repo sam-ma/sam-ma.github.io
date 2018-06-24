@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>curl: (23) Failed writing body</title>
+	
+	<meta name="description" content="">
+	<meta name="image" content="">
+	
+	<meta itemprop="name" content="curl: (23) Failed writing body">
+	<meta itemprop="description" content="">
+	<meta itemprop="image" content="">
+	
+	<meta name="og:title" content="curl: (23) Failed writing body">
+	<meta name="og:description" content="">
+	
+	<meta name="og:url" content="https://www.shenyan.me/other/curl-23-failed-writing-body/">
+	<meta name="og:site_name" content="curl: (23) Failed writing body">
+	<meta name="og:type" content="article">
+	
+	<meta name="article:tag" content="curl other ">
+	<link rel="stylesheet" type="text/css" href="https://www.shenyan.me/css/style.css">
+	
+	
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-120740855-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+	
+	<script src="https://unpkg.com/kotlin-playground@1" data-selector=".kotlin-code"></script>
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/kotlin.min.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<script>
+	(adsbygoogle = window.adsbygoogle || []).push({
+		google_ad_client: "ca-pub-4978414475046912",
+		enable_page_level_ads: true
+	});
+	</script>
+</head>
+
+<body>
+
+<header>
+	
+	<a href="https://www.shenyan.me/" style="float: left;color:#777;"><strong>Home</strong></a>
+	
+	&nbsp;&nbsp;<a href="https://www.shenyan.me/archives/" style="color:#777;"><strong>Archives</strong></a>&nbsp;&nbsp;
+	
+	
+	
+	<a href="https://www.shenyan.me/index.xml" style="color:#777;float: right;"><strong><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></strong></a>
+</header>
+
+
+<div id="loadingMask" style="width: 100%; height: 100%; position: fixed; background: #fff;"></div>
+<script>
+function fadeOut(el) {
+  el.style.opacity = 1;
+
+  var last = +new Date();
+  var tick = function() {
+    el.style.opacity = +el.style.opacity - (new Date() - last) / 80;
+    last = +new Date();
+    
+
+    if (el.style.opacity > 0) {
+      (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+    } else {
+      el.style.display='none';
+    }
+  };
+
+  tick();
+}
+
+function ready(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+         el = document.getElementById('loadingMask');
+         fadeOut(el);
+        var elements = document.querySelectorAll("img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("alt")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("alt"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+
+    } else {
+        document.addEventListener('DOMContentLoaded', fn);
+    }
+}
+window.onload = ready;
+</script>
+
+<div class="content">
+  <h1>curl: (23) Failed writing body <aside>Last modified at: &nbsp;&nbsp;June 24, 2018&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/tags/curl/">curl</a>&nbsp;&nbsp;&nbsp;<a href="/tags/other/">other</a>&nbsp;&nbsp;&nbsp;</aside></h1>
+
+  
+
+<p>I was trying to get the first few lines of a large CSV file (144M) by piping the <code>curl</code> and <code>head</code> command as shown below. However, it didn&rsquo;t work as expected. No file content was displayed but the progress meter.</p>
+
+<pre><code>$ curl -LO http://burntsushi.net/stuff/worldcitiespop.csv | head
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   194  100   194    0     0    153      0  0:00:01  0:00:01 --:--:--   153
+100  144M  100  144M    0     0   514k      0  0:04:47  0:04:47 --:--:--  908k
+</code></pre>
+
+<p>Due to the <code>-O</code> option the output was written to a local file rather than stdout.</p>
+
+<p>Btw, <code>-L</code> tells <code>curl</code> to follow redirections.</p>
+
+<p>Replacing <code>-O</code> with <code>-sS</code> solved the above problem. However, another issue appeared. This time <code>curl: (23) Failed writing body</code> error was shown at the bottm.</p>
+
+<pre><code>$ curl -LsS http://burntsushi.net/stuff/worldcitiespop.csv | head
+Country,City,AccentCity,Region,Population,Latitude,Longitude
+ad,aixas,Aixàs,06,,42.4833333,1.4666667
+ad,aixirivali,Aixirivali,06,,42.4666667,1.5
+ad,aixirivall,Aixirivall,06,,42.4666667,1.5
+ad,aixirvall,Aixirvall,06,,42.4666667,1.5
+ad,aixovall,Aixovall,06,,42.4666667,1.4833333
+ad,andorra,Andorra,07,,42.5,1.5166667
+ad,andorra la vella,Andorra la Vella,07,20430,42.5,1.5166667
+ad,andorra-vieille,Andorra-Vieille,07,,42.5,1.5166667
+ad,andorre,Andorre,07,,42.5,1.5166667
+curl: (23) Failed writing body (0 != 16384)
+</code></pre>
+
+<p><span style="color:blue"><strong>Looks like it&rsquo;s because the piped <code>head</code> closed the read pipe before <code>curl</code> finished writing output.</strong></span> Someone suggested to add <code>-N</code> to disable buffer. Unfortunately, it still didn&rsquo;t work :(</p>
+
+<pre><code>$ curl -LsSN http://burntsushi.net/stuff/worldcitiespop.csv | head
+Country,City,AccentCity,Region,Population,Latitude,Longitude
+ad,aixas,Aixàs,06,,42.4833333,1.4666667
+ad,aixirivali,Aixirivali,06,,42.4666667,1.5
+ad,aixirivall,Aixirivall,06,,42.4666667,1.5
+ad,aixirvall,Aixirvall,06,,42.4666667,1.5
+ad,aixovall,Aixovall,06,,42.4666667,1.4833333
+ad,andorra,Andorra,07,,42.5,1.5166667
+ad,andorra la vella,Andorra la Vella,07,20430,42.5,1.5166667
+ad,andorra-vieille,Andorra-Vieille,07,,42.5,1.5166667
+ad,andorre,Andorre,07,,42.5,1.5166667
+curl: (23) Failed writing body (0 != 16384)
+</code></pre>
+
+<p>Removing <code>-S</code> seems to work &ldquo;<del>perfectly</del>&rdquo;. However, it just suppressed the error message. But that&rsquo;s enough for my case :)</p>
+
+<pre><code>$ curl -LsN http://burntsushi.net/stuff/worldcitiespop.csv | head
+Country,City,AccentCity,Region,Population,Latitude,Longitude
+ad,aixas,Aixàs,06,,42.4833333,1.4666667
+ad,aixirivali,Aixirivali,06,,42.4666667,1.5
+ad,aixirivall,Aixirivall,06,,42.4666667,1.5
+ad,aixirvall,Aixirvall,06,,42.4666667,1.5
+ad,aixovall,Aixovall,06,,42.4666667,1.4833333
+ad,andorra,Andorra,07,,42.5,1.5166667
+ad,andorra la vella,Andorra la Vella,07,20430,4
+</code></pre>
+
+<h2 id="sample-csv">Sample CSV:</h2>
+
+<ul>
+<li>1. <a href="http://burntsushi.net/stuff/worldcitiespop.csv">worldcitiespop.csv</a> from <a href="https://github.com/BurntSushi/xsv">https://github.com/BurntSushi/xsv</a></li>
+<li>2. <a href="http://samplecsvs.s3.amazonaws.com/Sacramentorealestatetransactions.csv">Sacramentorealestatetransactions.csv</a> from <a href="https://support.spatialkey.com/spatialkey-sample-csv-data/">https://support.spatialkey.com/spatialkey-sample-csv-data/</a></li>
+</ul>
+
+<h2 id="reference">Reference:</h2>
+
+<ul>
+<li>1. <a href="https://stackoverflow.com/questions/16703647/why-curl-return-and-error-23-failed-writing-body">Stackoverflow related question</a></li>
+<li>2. <a href="https://curl.haxx.se/docs/manpage.html">curl man page</a></li>
+</ul>
+
+</div>
+
+
+
+
+<footer>
+	<p>© 2018, all rights reserved.</a>
+</footer>
+</body>
+</html>
+

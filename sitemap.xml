@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://www.shenyan.me/kotlin/hugo-kotlin-shortcodes/</loc>
+    <lastmod>2018-06-25T20:51:24+10:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://www.shenyan.me/other/curl-23-failed-writing-body/</loc>
     <lastmod>2018-06-24T21:30:08+10:00</lastmod>
   </url>
@@ -35,25 +40,25 @@
   
   <url>
     <loc>https://www.shenyan.me/</loc>
-    <lastmod>2018-06-24T21:30:08+10:00</lastmod>
+    <lastmod>2018-06-25T20:51:24+10:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://www.shenyan.me/tags/hugo/</loc>
-    <lastmod>2018-06-24T21:25:35+10:00</lastmod>
+    <lastmod>2018-06-25T20:51:24+10:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://www.shenyan.me/tags/kotlin/</loc>
-    <lastmod>2018-06-24T21:25:35+10:00</lastmod>
+    <lastmod>2018-06-25T20:51:24+10:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://www.shenyan.me/kotlin/</loc>
-    <lastmod>2018-06-24T21:25:35+10:00</lastmod>
+    <lastmod>2018-06-25T20:51:24+10:00</lastmod>
     <priority>0</priority>
   </url>
   

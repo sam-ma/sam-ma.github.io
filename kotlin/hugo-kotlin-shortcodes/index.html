@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>Hugo Kotlin Shortcodes</title>
+	
+	<meta name="description" content="">
+	<meta name="image" content="">
+	
+	<meta itemprop="name" content="Hugo Kotlin Shortcodes">
+	<meta itemprop="description" content="">
+	<meta itemprop="image" content="">
+	
+	<meta name="og:title" content="Hugo Kotlin Shortcodes">
+	<meta name="og:description" content="">
+	
+	<meta name="og:url" content="https://www.shenyan.me/kotlin/hugo-kotlin-shortcodes/">
+	<meta name="og:site_name" content="Hugo Kotlin Shortcodes">
+	<meta name="og:type" content="article">
+	
+	<meta name="article:tag" content="kotlin hugo ">
+	<link rel="stylesheet" type="text/css" href="https://www.shenyan.me/css/style.css">
+	
+	
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-120740855-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+	
+	<script src="https://unpkg.com/kotlin-playground@1" data-selector=".kotlin-code"></script>
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/kotlin.min.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<script>
+	(adsbygoogle = window.adsbygoogle || []).push({
+		google_ad_client: "ca-pub-4978414475046912",
+		enable_page_level_ads: true
+	});
+	</script>
+</head>
+
+<body>
+
+<header>
+	
+	<a href="https://www.shenyan.me/" style="float: left;color:#777;"><strong>Home</strong></a>
+	
+	&nbsp;&nbsp;<a href="https://www.shenyan.me/archives/" style="color:#777;"><strong>Archives</strong></a>&nbsp;&nbsp;
+	
+	
+	
+	<a href="https://www.shenyan.me/index.xml" style="color:#777;float: right;"><strong><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></strong></a>
+</header>
+
+
+<div id="loadingMask" style="width: 100%; height: 100%; position: fixed; background: #fff;"></div>
+<script>
+function fadeOut(el) {
+  el.style.opacity = 1;
+
+  var last = +new Date();
+  var tick = function() {
+    el.style.opacity = +el.style.opacity - (new Date() - last) / 80;
+    last = +new Date();
+    
+
+    if (el.style.opacity > 0) {
+      (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+    } else {
+      el.style.display='none';
+    }
+  };
+
+  tick();
+}
+
+function ready(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+         el = document.getElementById('loadingMask');
+         fadeOut(el);
+        var elements = document.querySelectorAll("img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("alt")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("alt"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+
+    } else {
+        document.addEventListener('DOMContentLoaded', fn);
+    }
+}
+window.onload = ready;
+</script>
+
+<div class="content">
+  <h1>Hugo Kotlin Shortcodes <aside>Last modified at: &nbsp;&nbsp;June 25, 2018&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/tags/kotlin/">kotlin</a>&nbsp;&nbsp;&nbsp;<a href="/tags/hugo/">hugo</a>&nbsp;&nbsp;&nbsp;</aside></h1>
+
+  
+
+<p><a href="https://github.com/sam-ma/hugo-shortcodes">Hugo Kotlin shortcodes</a> can be used to <a href="https://blog.jetbrains.com/kotlin/2018/04/embedding-kotlin-playground/">embed kotlin playground</a> into Hugo sites.</p>
+
+<h2 id="set-up">Set up</h2>
+
+<ul>
+<li>1. Copy <code>layouts/shortcodes/kotlin.html</code> to <code>[your hugo site home]/layouts/shortcodes/kotlin.html</code></li>
+<li>2. Copy <code>[your hugo site home]/themes/[the theme you choose]/layouts/partials/head.html</code> to <code>[your hugo site home]/layouts/partials/header.html</code></li>
+<li>3. Open the copied <code>header.html</code> and add the followings into the <code>&lt;head&gt;</code> section</li>
+</ul>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!-- kotlin playground script --&gt;</span>
+&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://unpkg.com/kotlin-playground@1&#34;</span> <span style="color:#a6e22e">data-selector</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;.kotlin-code&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+<span style="color:#75715e">&lt;!-- highlight css --&gt;</span>
+&lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css&#34;</span>&gt;
+<span style="color:#75715e">&lt;!-- highlight script --&gt;</span>
+&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/kotlin.min.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;<span style="color:#f92672">script</span>&gt;<span style="color:#a6e22e">hljs</span>.<span style="color:#a6e22e">initHighlightingOnLoad</span>();&lt;/<span style="color:#f92672">script</span>&gt;</code></pre></div>
+
+<h2 id="how-to-use-live-demo">How to use / Live Demo</h2>
+
+<p>The following examples demonstrates how to embed <a href="https://jetbrains.github.io/kotlin-playground/examples/">kotlin playground examples</a></p>
+
+<ul>
+<li>1. Basic example</li>
+</ul>
+
+<p><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">1</span>{{&lt; kotlin &gt;}}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">2</span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Contact</span>(<span style="color:#66d9ef">val</span> id: Int, <span style="color:#66d9ef">var</span> email: String) 
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">3</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">4</span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>(args: Array&lt;String&gt;) {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">5</span>    <span style="color:#66d9ef">val</span> contact = Contact(<span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#34;mary@gmail.com&#34;</span>)
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">6</span>    println(contact.id)                   
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">7</span>}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">8</span>{{&lt; /kotlin &gt;}}</code></pre></div></p>
+
+<p>Output:</p>
+
+<div class="kotlin-code" 
+     
+    data-target-platform="java"
+    
+     >
+    <pre>
+        <code class="hljs language-kotlin">
+        
+class Contact(val id: Int, var email: String) 
+
+fun main(args: Array&lt;String&gt;) {
+    val contact = Contact(1, &#34;mary@gmail.com&#34;)
+    println(contact.id)                   
+}
+
+        </code>
+    </pre>
+</div>
+
+
+<ul>
+<li>2. Example using <code>theme</code> and <code>highlight-only</code></li>
+</ul>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">1</span>{{&lt; kotlin theme=<span style="color:#e6db74">&#34;idea&#34;</span> highlight-only=<span style="color:#e6db74">&#34;true&#34;</span> &gt;}}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">2</span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>(args: Array&lt;String&gt;) {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">3</span>    println(<span style="color:#e6db74">&#34;Hello World!&#34;</span>)
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">4</span>}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">5</span>{{&lt; /kotlin &gt;}}</code></pre></div>
+
+<p>Output:</p>
+
+<div class="kotlin-code" 
+    theme="idea" 
+    data-target-platform="java"
+    
+    data-highlight-only >
+    <pre>
+        <code class="hljs language-kotlin">
+        
+fun main(args: Array&lt;String&gt;) {
+    println(&#34;Hello World!&#34;)
+}
+
+        </code>
+    </pre>
+</div>
+
+
+<ul>
+<li>3. Example using <code>darcula</code> theme</li>
+</ul>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">1</span>{{&lt; kotlin theme=<span style="color:#e6db74">&#34;darcula&#34;</span> highlight-only=<span style="color:#e6db74">&#34;true&#34;</span> &gt;}}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">2</span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>(args: Array&lt;String&gt;) {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">3</span>    println(<span style="color:#e6db74">&#34;Hello World!&#34;</span>)
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">4</span>}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">5</span>{{&lt; /kotlin &gt;}}</code></pre></div>
+
+<p>Output:</p>
+
+<div class="kotlin-code" 
+    theme="darcula" 
+    data-target-platform="java"
+    
+    data-highlight-only >
+    <pre>
+        <code class="hljs language-kotlin">
+        
+fun main(args: Array&lt;String&gt;) {
+    println(&#34;Hello World!&#34;)
+}
+
+        </code>
+    </pre>
+</div>
+
+
+<ul>
+<li>4. Example using <code>platform</code></li>
+</ul>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">1</span>{{&lt; kotlin platform=<span style="color:#e6db74">&#34;js&#34;</span> &gt;}}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">2</span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">sum</span>(a: Int, b: Int): Int {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">3</span>    <span style="color:#66d9ef">return</span> a + b
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">4</span>}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">5</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">6</span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>(args: Array&lt;String&gt;) {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">7</span>    print(sum(-<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">8</span>))
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">8</span>}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">9</span>{{&lt; /kotlin &gt;}}</code></pre></div>
+
+<p>Output:</p>
+
+<div class="kotlin-code" 
+     
+    data-target-platform="js"
+    
+     >
+    <pre>
+        <code class="hljs language-kotlin">
+        
+fun sum(a: Int, b: Int): Int {
+    return a + b
+}
+
+fun main(args: Array&lt;String&gt;) {
+    print(sum(-1, 8))
+}
+
+        </code>
+    </pre>
+</div>
+
+
+<ul>
+<li>5. Example using <code>junit</code> platform</li>
+</ul>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 1</span>{{&lt; kotlin platform=<span style="color:#e6db74">&#34;junit&#34;</span> &gt;}}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 2</span><span style="color:#66d9ef">import</span> org.junit.Test
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 3</span><span style="color:#66d9ef">import</span> org.junit.Assert
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 4</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 5</span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TestExtensionFunctions</span>() {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 6</span>    @Test <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">testIntExtension</span>() {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 7</span>        Assert.assertEquals(<span style="color:#e6db74">&#34;Rational number creation error: &#34;</span>, RationalNumber(<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">1</span>), <span style="color:#ae81ff">4.</span>r())
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 8</span>    }
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 9</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">10</span>    @Test <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">testPairExtension</span>() {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">11</span>        Assert.assertEquals(<span style="color:#e6db74">&#34;Rational number creation error: &#34;</span>, RationalNumber(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>), Pair(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>).r())
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">12</span>    }
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">13</span>}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">14</span><span style="color:#75715e">//sampleStart
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">15</span><span style="color:#75715e"></span><span style="color:#75715e">/*
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">16</span><span style="color:#75715e">Then implement extension functions Int.r() and Pair.r() and make them convert Int and Pair to RationalNumber.
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">17</span><span style="color:#75715e">*/</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">18</span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">Int</span>.r(): RationalNumber = RationalNumber(<span style="color:#66d9ef">this</span>, <span style="color:#ae81ff">2</span>)
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">19</span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">Pair</span>&lt;Int, Int&gt;.r(): RationalNumber = RationalNumber(first, second)
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">20</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">21</span><span style="color:#66d9ef">data</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RationalNumber</span>(<span style="color:#66d9ef">val</span> numerator: Int, <span style="color:#66d9ef">val</span> denominator: Int)
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">22</span><span style="color:#75715e">//sampleEnd
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">23</span><span style="color:#75715e"></span>{{&lt; /kotlin &gt;}}</code></pre></div>
+
+<p>Output:</p>
+
+<p><div class="kotlin-code" 
+     
+    data-target-platform="junit"
+    
+     >
+    <pre>
+        <code class="hljs language-kotlin">
+        
+import org.junit.Test
+import org.junit.Assert
+
+class TestExtensionFunctions() {
+    @Test fun testIntExtension() {
+        Assert.assertEquals(&#34;Rational number creation error: &#34;, RationalNumber(4, 1), 4.r())
+    }
+
+    @Test fun testPairExtension() {
+        Assert.assertEquals(&#34;Rational number creation error: &#34;, RationalNumber(2, 3), Pair(2, 3).r())
+    }
+}
+//sampleStart
+/*
+Then implement extension functions Int.r() and Pair.r() and make them convert Int and Pair to RationalNumber.
+*/
+fun Int.r(): RationalNumber = RationalNumber(this, 2)
+fun Pair&lt;Int, Int&gt;.r(): RationalNumber = RationalNumber(first, second)
+
+data class RationalNumber(val numerator: Int, val denominator: Int)
+//sampleEnd
+
+        </code>
+    </pre>
+</div>
+</p>
+
+<ul>
+<li>6. Example using <code>folded-button</code></li>
+</ul>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 1</span>{{&lt; kotlin platform=<span style="color:#e6db74">&#34;junit&#34;</span> folded-button=<span style="color:#e6db74">&#34;false&#34;</span> &gt;}}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 2</span><span style="color:#66d9ef">import</span> org.junit.Test
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 3</span><span style="color:#66d9ef">import</span> org.junit.Assert
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 4</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 5</span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TestContainsFunctions</span>() {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 6</span>    @Test <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">contains</span>() {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 7</span>        Assert.assertTrue(containsEven(listOf(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>)));
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 8</span>    }
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 9</span>    @Test <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">notContains</span>() {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">10</span>        Assert.assertFalse(containsEven(listOf(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>)));
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">11</span>    }
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">12</span>}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">13</span><span style="color:#75715e">//sampleStart
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">14</span><span style="color:#75715e"></span><span style="color:#75715e">/*
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">15</span><span style="color:#75715e">Pass a lambda to any function to check if the collection contains an even number.
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">16</span><span style="color:#75715e">The function any gets a predicate as an argument and returns true if there is at least one element satisfying the predicate.
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">17</span><span style="color:#75715e">*/</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">18</span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">containsEven</span>(collection: Collection&lt;Int&gt;): Boolean = collection.any {<span style="color:#a6e22e">[mark]</span>TODO()<span style="color:#a6e22e">[/mark]</span>}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">19</span><span style="color:#75715e">//sampleEnd
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">20</span><span style="color:#75715e"></span>{{&lt; /kotlin &gt;}}</code></pre></div>
+
+<p>Output:</p>
+
+<p><div class="kotlin-code" 
+     
+    data-target-platform="junit"
+    folded-button="false"
+     >
+    <pre>
+        <code class="hljs language-kotlin">
+        
+import org.junit.Test
+import org.junit.Assert
+
+class TestContainsFunctions() {
+    @Test fun contains() {
+        Assert.assertTrue(containsEven(listOf(1, 2, 3, 4)));
+    }
+    @Test fun notContains() {
+        Assert.assertFalse(containsEven(listOf(1, 3, 5)));
+    }
+}
+//sampleStart
+/*
+Pass a lambda to any function to check if the collection contains an even number.
+The function any gets a predicate as an argument and returns true if there is at least one element satisfying the predicate.
+*/
+fun containsEven(collection: Collection&lt;Int&gt;): Boolean = collection.any {[mark]TODO()[/mark]}
+//sampleEnd
+
+        </code>
+    </pre>
+</div>
+</p>
+
+<ul>
+<li>7. Example using <code>canvas</code> platform</li>
+</ul>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 1</span>{{&lt; kotlin platform=<span style="color:#e6db74">&#34;canvas&#34;</span> &gt;}}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 2</span><span style="color:#66d9ef">package</span> fancylines
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 3</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 4</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 5</span><span style="color:#66d9ef">import</span> jquery.*
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 6</span><span style="color:#66d9ef">import</span> org.w3c.dom.CanvasRenderingContext2D
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 7</span><span style="color:#66d9ef">import</span> org.w3c.dom.HTMLCanvasElement
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 8</span><span style="color:#66d9ef">import</span> kotlin.browser.document
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 9</span><span style="color:#66d9ef">import</span> kotlin.browser.window
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">10</span><span style="color:#66d9ef">import</span> kotlin.js.Math
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">11</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">12</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">13</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">14</span><span style="color:#66d9ef">val</span> canvas = initalizeCanvas()
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">15</span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">initalizeCanvas</span>(): HTMLCanvasElement {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">16</span>    <span style="color:#66d9ef">val</span> canvas = document.createElement(<span style="color:#e6db74">&#34;canvas&#34;</span>) <span style="color:#66d9ef">as</span> HTMLCanvasElement
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">17</span>    <span style="color:#66d9ef">val</span> context = canvas.getContext(<span style="color:#e6db74">&#34;2d&#34;</span>) <span style="color:#66d9ef">as</span> CanvasRenderingContext2D
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">18</span>    context.canvas.width  = window.innerWidth.toInt();
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">19</span>    context.canvas.height = window.innerHeight.toInt();
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">20</span>    document.body<span style="color:#f92672">!!</span>.appendChild(canvas)
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">21</span>    <span style="color:#66d9ef">return</span> canvas
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">22</span>}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">23</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">24</span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FancyLines</span>() {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">25</span>    <span style="color:#66d9ef">val</span> context = canvas.getContext(<span style="color:#e6db74">&#34;2d&#34;</span>) <span style="color:#66d9ef">as</span> CanvasRenderingContext2D
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">26</span>    <span style="color:#66d9ef">val</span> height = canvas.height
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">27</span>    <span style="color:#66d9ef">val</span> width = canvas.width
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">28</span>    <span style="color:#66d9ef">var</span> x = width * Math.random()
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">29</span>    <span style="color:#66d9ef">var</span> y = height * Math.random()
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">30</span>    <span style="color:#66d9ef">var</span> hue = <span style="color:#ae81ff">0</span>;
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">31</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">32</span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">line</span>() {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">33</span>        context.save();
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">34</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">35</span>        context.beginPath();
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">36</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">37</span>        context.lineWidth = <span style="color:#ae81ff">20.0</span> * Math.random();
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">38</span>        context.moveTo(x, y);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">39</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">40</span>        x = width * Math.random();
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">41</span>        y = height * Math.random();
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">42</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">43</span>        context.bezierCurveTo(width * Math.random(), height * Math.random(),
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">44</span>                width * Math.random(), height * Math.random(), x, y);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">45</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">46</span>        hue += (Math.random() * <span style="color:#ae81ff">10</span>).toInt();
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">47</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">48</span>        context.strokeStyle = <span style="color:#e6db74">&#34;hsl($hue, 50%, 50%)&#34;</span>;
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">49</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">50</span>        context.shadowColor = <span style="color:#e6db74">&#34;white&#34;</span>;
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">51</span>        context.shadowBlur = <span style="color:#ae81ff">10.0</span>;
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">52</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">53</span>        context.stroke();
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">54</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">55</span>        context.restore();
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">56</span>    }
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">57</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">58</span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">blank</span>() {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">59</span>        context.fillStyle = <span style="color:#e6db74">&#34;rgba(255,255,1,0.1)&#34;</span>;
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">60</span>        context.fillRect(<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, width.toDouble(), height.toDouble());
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">61</span>    }
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">62</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">63</span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">run</span>() {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">64</span>        window.setInterval({ line() }, <span style="color:#ae81ff">40</span>);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">65</span>        window.setInterval({ blank() }, <span style="color:#ae81ff">100</span>);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">66</span>    }
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">67</span>}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">68</span><span style="color:#75715e">//sampleStart
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">69</span><span style="color:#75715e"></span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>(args: Array&lt;String&gt;) {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">70</span>    FancyLines().run()
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">71</span>}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">72</span><span style="color:#75715e">//sampleEnd
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">73</span><span style="color:#75715e"></span>{{&lt; /kotlin &gt;}}</code></pre></div>
+
+<p>Output:</p>
+
+<p><div class="kotlin-code" 
+     
+    data-target-platform="canvas"
+    
+     >
+    <pre>
+        <code class="hljs language-kotlin">
+        
+package fancylines
+
+
+import jquery.*
+import org.w3c.dom.CanvasRenderingContext2D
+import org.w3c.dom.HTMLCanvasElement
+import kotlin.browser.document
+import kotlin.browser.window
+import kotlin.js.Math
+
+
+
+val canvas = initalizeCanvas()
+fun initalizeCanvas(): HTMLCanvasElement {
+    val canvas = document.createElement(&#34;canvas&#34;) as HTMLCanvasElement
+    val context = canvas.getContext(&#34;2d&#34;) as CanvasRenderingContext2D
+    context.canvas.width  = window.innerWidth.toInt();
+    context.canvas.height = window.innerHeight.toInt();
+    document.body!!.appendChild(canvas)
+    return canvas
+}
+
+class FancyLines() {
+    val context = canvas.getContext(&#34;2d&#34;) as CanvasRenderingContext2D
+    val height = canvas.height
+    val width = canvas.width
+    var x = width * Math.random()
+    var y = height * Math.random()
+    var hue = 0;
+
+    fun line() {
+        context.save();
+
+        context.beginPath();
+
+        context.lineWidth = 20.0 * Math.random();
+        context.moveTo(x, y);
+
+        x = width * Math.random();
+        y = height * Math.random();
+
+        context.bezierCurveTo(width * Math.random(), height * Math.random(),
+                width * Math.random(), height * Math.random(), x, y);
+
+        hue += (Math.random() * 10).toInt();
+
+        context.strokeStyle = &#34;hsl($hue, 50%, 50%)&#34;;
+
+        context.shadowColor = &#34;white&#34;;
+        context.shadowBlur = 10.0;
+
+        context.stroke();
+
+        context.restore();
+    }
+
+    fun blank() {
+        context.fillStyle = &#34;rgba(255,255,1,0.1)&#34;;
+        context.fillRect(0.0, 0.0, width.toDouble(), height.toDouble());
+    }
+
+    fun run() {
+        window.setInterval({ line() }, 40);
+        window.setInterval({ blank() }, 100);
+    }
+}
+//sampleStart
+fun main(args: Array&lt;String&gt;) {
+    FancyLines().run()
+}
+//sampleEnd
+
+        </code>
+    </pre>
+</div>
+</p>
+
+</div>
+
+
+
+
+<footer>
+	<p>© 2018, all rights reserved.</a>
+</footer>
+</body>
+</html>
+

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Jquery on Home</title>
+    <link>https://www.shenyan.me/tags/jquery/</link>
+    <description>Recent content in Jquery on Home</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 26 Jun 2018 21:29:08 +1000</lastBuildDate>
+    
+        <atom:link href="https://www.shenyan.me/tags/jquery/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title> jQuery Additional Form Data on Submit</title>
+      <link>https://www.shenyan.me/jquery/jquery-additional-form-data-on-submit/</link>
+      <pubDate>Tue, 26 Jun 2018 21:29:08 +1000</pubDate>
+      
+      <guid>https://www.shenyan.me/jquery/jquery-additional-form-data-on-submit/</guid>
+      <description>
+
+&lt;h2 id=&#34;problem&#34;&gt;Problem:&lt;/h2&gt;
+
+&lt;p&gt;Suppose you would like to use &lt;code&gt;jQuery&lt;/code&gt; to submit a form with additional data.&lt;/p&gt;
+
+&lt;h2 id=&#34;solution&#34;&gt;Solution:&lt;/h2&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;input&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;$&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;lt;input&amp;gt;&amp;#34;&lt;/span&gt;)
+               .&lt;span style=&#34;color:#a6e22e&#34;&gt;attr&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;hidden&amp;#34;&lt;/span&gt;)
+               .&lt;span style=&#34;color:#a6e22e&#34;&gt;attr&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;myname&amp;#34;&lt;/span&gt;).&lt;span style=&#34;color:#a6e22e&#34;&gt;val&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;myvalue&amp;#34;&lt;/span&gt;)
+               .&lt;span style=&#34;color:#a6e22e&#34;&gt;appendTo&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;#myform&amp;#34;&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Replace&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;span style=&#34;color:red&#34;&gt;myname&lt;/span&gt; to the parameter name you want to associate with the value.&lt;/li&gt;
+&lt;li&gt;&lt;span style=&#34;color:red&#34;&gt;myvalue&lt;/span&gt; to the value you want to submit&lt;/li&gt;
+&lt;li&gt;&lt;span style=&#34;color:red&#34;&gt;myform&lt;/span&gt; to the id of the form you would like to submit&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;reference&#34;&gt;Reference:&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;1. &lt;a href=&#34;http://api.jquery.com/jquery/#jQuery-html-attributes&#34;&gt;jQuery API Doc&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;2. &lt;a href=&#34;https://stackoverflow.com/questions/2530635/jquery-add-additional-parameters-on-submit-not-ajax&#34;&gt;Stackoverflow related question&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -6,10 +6,105 @@
     <description>Recent content in Hugo on Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 25 Jun 2018 20:51:24 +1000</lastBuildDate>
+    <lastBuildDate>Sat, 30 Jun 2018 13:54:34 +1000</lastBuildDate>
     
         <atom:link href="https://www.shenyan.me/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Hugo Rust Shortcodes</title>
+      <link>https://www.shenyan.me/rust/hugo-rust-shortcodes/</link>
+      <pubDate>Sat, 30 Jun 2018 13:54:34 +1000</pubDate>
+      
+      <guid>https://www.shenyan.me/rust/hugo-rust-shortcodes/</guid>
+      <description>
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/sam-ma/hugo-shortcodes&#34;&gt;Hugo Rust shortcodes&lt;/a&gt; can be used to embed Rust code just like &lt;a href=&#34;https://doc.rust-lang.org/book/second-edition/ch01-02-hello-world.html&#34;&gt;Rust book&lt;/a&gt; into Hugo sites.&lt;/p&gt;
+
+&lt;h2 id=&#34;set-up&#34;&gt;Set up&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;1. Copy &lt;code&gt;layouts/shortcodes/rust.html&lt;/code&gt; to &lt;code&gt;[your hugo site home]/layouts/shortcodes/rust.html&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;2. Copy &lt;code&gt;static/css/rust.css&lt;/code&gt; to &lt;code&gt;[your hugo site home]/static/css/rust.css&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;3. Copy &lt;code&gt;static/js/rust.js&lt;/code&gt; to &lt;code&gt;[your hugo site home]/static/js/rust.js&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;4. Copy &lt;code&gt;[your hugo site home]/themes/[the theme you choose]/layouts/partials/head.html&lt;/code&gt; to &lt;code&gt;[your hugo site home]/layouts/partials/header.html&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;5. Open the copied &lt;code&gt;header.html&lt;/code&gt; and add the followings into the &lt;code&gt;&amp;lt;head&amp;gt;&lt;/code&gt; section&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;script&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;src&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/rust.min.js&amp;#34;&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;script&lt;/span&gt;&amp;gt;
+&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;link&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;rel&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;stylesheet&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;type&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;text/css&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;href&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;{{ .Site.BaseURL }}css/rust.css&amp;#34;&lt;/span&gt;&amp;gt;
+&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;link&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;rel&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;stylesheet&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;href&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css&amp;#34;&lt;/span&gt;&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;6. Copy &lt;code&gt;[your hugo site home]/themes/[the theme you choose]/layouts/partials/footer.html&lt;/code&gt; to &lt;code&gt;[your hugo site home]/layouts/partials/footer.html&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;7. Open the copied &lt;code&gt;footer.html&lt;/code&gt; and add the followings before the &lt;code&gt;&amp;lt;/body&amp;gt;&lt;/code&gt; tag&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;script&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;src&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;{{ .Site.BaseURL }}js/rust.js&amp;#34;&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;script&lt;/span&gt;&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2 id=&#34;how-to-use-live-demo&#34;&gt;How to use / Live Demo&lt;/h2&gt;
+
+&lt;p&gt;The following examples demonstrates how to embed &lt;a href=&#34;https://doc.rust-lang.org/book/second-edition/ch01-02-hello-world.html&#34;&gt;Rust book examples&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;1. Basic example&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79&#34;&gt;1&lt;/span&gt;{{&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; rust &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;}}
+&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;() {
+&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79&#34;&gt;3&lt;/span&gt;    println&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Hello, world!&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79&#34;&gt;4&lt;/span&gt;}
+&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79&#34;&gt;5&lt;/span&gt;{{&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;rust &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;}}
+&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79&#34;&gt;6&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Output:&lt;/p&gt;
+
+
+&lt;pre&gt;&lt;pre class=&#34;playpen&#34;&gt;&lt;code class=&#34;language-rust&#34;&gt;fn main() {
+    println!(&amp;#34;Hello, world!&amp;#34;);
+}&lt;/code&gt;&lt;/pre&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;2. Hide lines with &lt;code&gt;#&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79&#34;&gt;1&lt;/span&gt;{{&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; rust &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;}}
+&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;() {
+&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79&#34;&gt;3&lt;/span&gt;    println&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Hello, world!&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79&#34;&gt;4&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;#&lt;/span&gt;}
+&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79&#34;&gt;5&lt;/span&gt;{{&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;rust &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;}}
+&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79&#34;&gt;6&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Output:&lt;/p&gt;
+
+
+&lt;pre&gt;&lt;pre class=&#34;playpen&#34;&gt;&lt;code class=&#34;language-rust&#34;&gt;#fn main() {
+    println!(&amp;#34;Hello, world!&amp;#34;);
+#}&lt;/code&gt;&lt;/pre&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Hugo Rust Shortcodes Example</title>
+      <link>https://www.shenyan.me/rust/hugo-rust-example/</link>
+      <pubDate>Wed, 27 Jun 2018 21:25:31 +1000</pubDate>
+      
+      <guid>https://www.shenyan.me/rust/hugo-rust-example/</guid>
+      <description>&lt;p&gt;This is the live demo page for the &lt;code&gt;{{&amp;lt; rust &amp;gt;}}&lt;/code&gt; hugo shortcode&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/sam-ma/hugo-shortcodes&#34;&gt;https://github.com/sam-ma/hugo-shortcodes&lt;/a&gt;&lt;/p&gt;
+
+
+&lt;pre&gt;&lt;pre class=&#34;playpen&#34;&gt;&lt;code class=&#34;language-rust&#34;&gt;fn main() {
+    println!(&amp;#34;Hello, world!&amp;#34;);
+}&lt;/code&gt;&lt;/pre&gt;&lt;/pre&gt;
+
+
+&lt;pre&gt;&lt;pre class=&#34;playpen&#34;&gt;&lt;code class=&#34;language-rust&#34;&gt;#fn main() {
+    println!(&amp;#34;Hello, world!&amp;#34;);
+#}&lt;/code&gt;&lt;/pre&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>Hugo Kotlin Shortcodes</title>

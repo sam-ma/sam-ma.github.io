@@ -4,23 +4,23 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
-	<title> jQuery Additional Form Data on Submit</title>
+	<title>Hugo Rust Shortcodes Example</title>
 	
 	<meta name="description" content="">
 	<meta name="image" content="">
 	
-	<meta itemprop="name" content=" jQuery Additional Form Data on Submit">
+	<meta itemprop="name" content="Hugo Rust Shortcodes Example">
 	<meta itemprop="description" content="">
 	<meta itemprop="image" content="">
 	
-	<meta name="og:title" content=" jQuery Additional Form Data on Submit">
+	<meta name="og:title" content="Hugo Rust Shortcodes Example">
 	<meta name="og:description" content="">
 	
-	<meta name="og:url" content="https://www.shenyan.me/jquery/jquery-additional-form-data-on-submit/">
-	<meta name="og:site_name" content=" jQuery Additional Form Data on Submit">
+	<meta name="og:url" content="https://www.shenyan.me/rust/hugo-rust-example/">
+	<meta name="og:site_name" content="Hugo Rust Shortcodes Example">
 	<meta name="og:type" content="article">
 	
-	<meta name="article:tag" content="jquery ">
+	<meta name="article:tag" content="hugo rust example ">
 	<link rel="stylesheet" type="text/css" href="https://www.shenyan.me/css/style.css">
 	<link rel="stylesheet" type="text/css" href="https://www.shenyan.me/css/rust.css">
 	
@@ -43,7 +43,8 @@ if (!doNotTrack) {
 	
 
 	
-	<script>hljs.initHighlightingOnLoad();</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/rust.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css">
 	
 
 	
@@ -118,36 +119,21 @@ window.onload = ready;
 </script>
 
 <div class="content">
-  <h1> jQuery Additional Form Data on Submit <aside>Last modified at: &nbsp;&nbsp;June 26, 2018&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/tags/jquery/">jquery</a>&nbsp;&nbsp;&nbsp;</aside></h1>
+  <h1>Hugo Rust Shortcodes Example <aside>Last modified at: &nbsp;&nbsp;June 27, 2018&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/tags/hugo/">hugo</a>&nbsp;&nbsp;&nbsp;<a href="/tags/rust/">rust</a>&nbsp;&nbsp;&nbsp;<a href="/tags/example/">example</a>&nbsp;&nbsp;&nbsp;</aside></h1>
 
-  
+  <p>This is the live demo page for the <code>{{&lt; rust &gt;}}</code> hugo shortcode</p>
 
-<h2 id="problem">Problem:</h2>
+<p><a href="https://github.com/sam-ma/hugo-shortcodes">https://github.com/sam-ma/hugo-shortcodes</a></p>
 
-<p>Suppose you would like to use <code>jQuery</code> to submit a form with additional data.</p>
 
-<h2 id="solution">Solution:</h2>
+<pre><pre class="playpen"><code class="language-rust">fn main() {
+    println!(&#34;Hello, world!&#34;);
+}</code></pre></pre>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">input</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">$</span>(<span style="color:#e6db74">&#34;&lt;input&gt;&#34;</span>)
-               .<span style="color:#a6e22e">attr</span>(<span style="color:#e6db74">&#34;type&#34;</span>, <span style="color:#e6db74">&#34;hidden&#34;</span>)
-               .<span style="color:#a6e22e">attr</span>(<span style="color:#e6db74">&#34;name&#34;</span>, <span style="color:#e6db74">&#34;myname&#34;</span>).<span style="color:#a6e22e">val</span>(<span style="color:#e6db74">&#34;myvalue&#34;</span>)
-               .<span style="color:#a6e22e">appendTo</span>(<span style="color:#e6db74">&#34;#myform&#34;</span>);
-</code></pre></div>
 
-<p>Replace</p>
-
-<ol>
-<li><span style="color:red">myname</span> to the parameter name you want to associate with the value.</li>
-<li><span style="color:red">myvalue</span> to the value you want to submit</li>
-<li><span style="color:red">myform</span> to the id of the form you would like to submit</li>
-</ol>
-
-<h2 id="reference">Reference:</h2>
-
-<ul>
-<li>1. <a href="http://api.jquery.com/jquery/#jQuery-html-attributes">jQuery API Doc</a></li>
-<li>2. <a href="https://stackoverflow.com/questions/2530635/jquery-add-additional-parameters-on-submit-not-ajax">Stackoverflow related question</a></li>
-</ul>
+<pre><pre class="playpen"><code class="language-rust">#fn main() {
+    println!(&#34;Hello, world!&#34;);
+#}</code></pre></pre>
 
 </div>
 
@@ -157,6 +143,8 @@ window.onload = ready;
 <footer>
 	<p>© 2018, all rights reserved.</a>
 </footer>
+
+<script src="https://www.shenyan.me/js/rust.js"></script>
 
 </body>
 </html>

@@ -14,6 +14,10 @@ header,header.a{
 	font-weight: bold;
 }
 
+code {
+	color: #6e6b5e;
+}
+
 @media all {
 	html {
 		font-size: 18px;
@@ -49,10 +53,10 @@ header,header.a{
 }
 
 /* reset */
-* {
+/* * {
 	margin: 0;
 	padding: 0;
-}
+} */
 
 html {
 	height: 100%;

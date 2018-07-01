@@ -6,10 +6,32 @@
     <description>Recent content in Example on Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 22 Jun 2018 21:41:35 +1000</lastBuildDate>
+    <lastBuildDate>Wed, 27 Jun 2018 21:25:31 +1000</lastBuildDate>
     
         <atom:link href="https://www.shenyan.me/tags/example/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Hugo Rust Shortcodes Example</title>
+      <link>https://www.shenyan.me/rust/hugo-rust-example/</link>
+      <pubDate>Wed, 27 Jun 2018 21:25:31 +1000</pubDate>
+      
+      <guid>https://www.shenyan.me/rust/hugo-rust-example/</guid>
+      <description>&lt;p&gt;This is the live demo page for the &lt;code&gt;{{&amp;lt; rust &amp;gt;}}&lt;/code&gt; hugo shortcode&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/sam-ma/hugo-shortcodes&#34;&gt;https://github.com/sam-ma/hugo-shortcodes&lt;/a&gt;&lt;/p&gt;
+
+
+&lt;pre&gt;&lt;pre class=&#34;playpen&#34;&gt;&lt;code class=&#34;language-rust&#34;&gt;fn main() {
+    println!(&amp;#34;Hello, world!&amp;#34;);
+}&lt;/code&gt;&lt;/pre&gt;&lt;/pre&gt;
+
+
+&lt;pre&gt;&lt;pre class=&#34;playpen&#34;&gt;&lt;code class=&#34;language-rust&#34;&gt;#fn main() {
+    println!(&amp;#34;Hello, world!&amp;#34;);
+#}&lt;/code&gt;&lt;/pre&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>Hugo Kotlin Shortcodes Example</title>

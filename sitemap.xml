@@ -3,6 +3,16 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://www.shenyan.me/rust/hugo-rust-shortcodes/</loc>
+    <lastmod>2018-06-30T13:54:34+10:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.shenyan.me/rust/hugo-rust-example/</loc>
+    <lastmod>2018-06-27T21:25:31+10:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://www.shenyan.me/jquery/jquery-additional-form-data-on-submit/</loc>
     <lastmod>2018-06-26T21:29:08+10:00</lastmod>
   </url>
@@ -39,19 +49,19 @@
   
   <url>
     <loc>https://www.shenyan.me/tags/example/</loc>
-    <lastmod>2018-06-24T21:25:35+10:00</lastmod>
+    <lastmod>2018-06-27T21:25:31+10:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://www.shenyan.me/</loc>
-    <lastmod>2018-06-26T21:29:08+10:00</lastmod>
+    <lastmod>2018-06-30T13:54:34+10:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://www.shenyan.me/tags/hugo/</loc>
-    <lastmod>2018-06-25T20:51:24+10:00</lastmod>
+    <lastmod>2018-06-30T13:54:34+10:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -88,6 +98,18 @@
   <url>
     <loc>https://www.shenyan.me/other/</loc>
     <lastmod>2018-06-24T21:30:08+10:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.shenyan.me/tags/rust/</loc>
+    <lastmod>2018-06-30T13:54:34+10:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.shenyan.me/rust/</loc>
+    <lastmod>2018-06-30T13:54:34+10:00</lastmod>
     <priority>0</priority>
   </url>
   

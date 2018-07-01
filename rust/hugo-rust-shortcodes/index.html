@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>Hugo Rust Shortcodes</title>
+	
+	<meta name="description" content="">
+	<meta name="image" content="">
+	
+	<meta itemprop="name" content="Hugo Rust Shortcodes">
+	<meta itemprop="description" content="">
+	<meta itemprop="image" content="">
+	
+	<meta name="og:title" content="Hugo Rust Shortcodes">
+	<meta name="og:description" content="">
+	
+	<meta name="og:url" content="https://www.shenyan.me/rust/hugo-rust-shortcodes/">
+	<meta name="og:site_name" content="Hugo Rust Shortcodes">
+	<meta name="og:type" content="article">
+	
+	<meta name="article:tag" content="hugo rust ">
+	<link rel="stylesheet" type="text/css" href="https://www.shenyan.me/css/style.css">
+	<link rel="stylesheet" type="text/css" href="https://www.shenyan.me/css/rust.css">
+	
+	
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-120740855-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+	
+	
+
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/rust.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css">
+	
+
+	
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<script>
+	(adsbygoogle = window.adsbygoogle || []).push({
+		google_ad_client: "ca-pub-4978414475046912",
+		enable_page_level_ads: true
+	});
+	</script>
+</head>
+
+<body class="light">
+
+<header>
+	
+	<a href="https://www.shenyan.me/" style="float: left;color:#777;"><strong>Home</strong></a>
+	
+	&nbsp;&nbsp;<a href="https://www.shenyan.me/archives/" style="color:#777;"><strong>Archives</strong></a>&nbsp;&nbsp;
+	
+	
+	
+	<a href="https://www.shenyan.me/index.xml" style="color:#777;float: right;"><strong><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></strong></a>
+</header>
+
+
+<div id="loadingMask" style="width: 100%; height: 100%; position: fixed; background: #fff;"></div>
+<script>
+function fadeOut(el) {
+  el.style.opacity = 1;
+
+  var last = +new Date();
+  var tick = function() {
+    el.style.opacity = +el.style.opacity - (new Date() - last) / 80;
+    last = +new Date();
+    
+
+    if (el.style.opacity > 0) {
+      (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+    } else {
+      el.style.display='none';
+    }
+  };
+
+  tick();
+}
+
+function ready(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+         el = document.getElementById('loadingMask');
+         fadeOut(el);
+        var elements = document.querySelectorAll("img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("alt")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("alt"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+
+    } else {
+        document.addEventListener('DOMContentLoaded', fn);
+    }
+}
+window.onload = ready;
+</script>
+
+<div class="content">
+  <h1>Hugo Rust Shortcodes <aside>Last modified at: &nbsp;&nbsp;June 30, 2018&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/tags/hugo/">hugo</a>&nbsp;&nbsp;&nbsp;<a href="/tags/rust/">rust</a>&nbsp;&nbsp;&nbsp;</aside></h1>
+
+  
+
+<p><a href="https://github.com/sam-ma/hugo-shortcodes">Hugo Rust shortcodes</a> can be used to embed Rust code just like <a href="https://doc.rust-lang.org/book/second-edition/ch01-02-hello-world.html">Rust book</a> into Hugo sites.</p>
+
+<h2 id="set-up">Set up</h2>
+
+<ul>
+<li>1. Copy <code>layouts/shortcodes/rust.html</code> to <code>[your hugo site home]/layouts/shortcodes/rust.html</code></li>
+<li>2. Copy <code>static/css/rust.css</code> to <code>[your hugo site home]/static/css/rust.css</code></li>
+<li>3. Copy <code>static/js/rust.js</code> to <code>[your hugo site home]/static/js/rust.js</code></li>
+<li>4. Copy <code>[your hugo site home]/themes/[the theme you choose]/layouts/partials/head.html</code> to <code>[your hugo site home]/layouts/partials/header.html</code></li>
+<li>5. Open the copied <code>header.html</code> and add the followings into the <code>&lt;head&gt;</code> section</li>
+</ul>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/rust.min.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/css&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ .Site.BaseURL }}css/rust.css&#34;</span>&gt;
+&lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css&#34;</span>&gt;</code></pre></div>
+
+<ul>
+<li>6. Copy <code>[your hugo site home]/themes/[the theme you choose]/layouts/partials/footer.html</code> to <code>[your hugo site home]/layouts/partials/footer.html</code></li>
+<li>7. Open the copied <code>footer.html</code> and add the followings before the <code>&lt;/body&gt;</code> tag</li>
+</ul>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ .Site.BaseURL }}js/rust.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;</code></pre></div>
+
+<h2 id="how-to-use-live-demo">How to use / Live Demo</h2>
+
+<p>The following examples demonstrates how to embed <a href="https://doc.rust-lang.org/book/second-edition/ch01-02-hello-world.html">Rust book examples</a></p>
+
+<ul>
+<li>1. Basic example</li>
+</ul>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">1</span>{{<span style="color:#f92672">&lt;</span> rust <span style="color:#f92672">&gt;</span>}}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">2</span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">3</span>    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;Hello, world!&#34;</span>);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">4</span>}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">5</span>{{<span style="color:#f92672">&lt;</span> <span style="color:#f92672">/</span>rust <span style="color:#f92672">&gt;</span>}}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">6</span></code></pre></div>
+
+<p>Output:</p>
+
+
+<pre><pre class="playpen"><code class="language-rust">fn main() {
+    println!(&#34;Hello, world!&#34;);
+}</code></pre></pre>
+
+<ul>
+<li>2. Hide lines with <code>#</code></li>
+</ul>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">1</span>{{<span style="color:#f92672">&lt;</span> rust <span style="color:#f92672">&gt;</span>}}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">2</span><span style="color:#960050;background-color:#1e0010">#</span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">3</span>    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;Hello, world!&#34;</span>);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">4</span><span style="color:#960050;background-color:#1e0010">#</span>}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">5</span>{{<span style="color:#f92672">&lt;</span> <span style="color:#f92672">/</span>rust <span style="color:#f92672">&gt;</span>}}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">6</span></code></pre></div>
+
+<p>Output:</p>
+
+
+<pre><pre class="playpen"><code class="language-rust">#fn main() {
+    println!(&#34;Hello, world!&#34;);
+#}</code></pre></pre>
+
+</div>
+
+
+
+
+<footer>
+	<p>© 2018, all rights reserved.</a>
+</footer>
+
+<script src="https://www.shenyan.me/js/rust.js"></script>
+
+</body>
+</html>
+

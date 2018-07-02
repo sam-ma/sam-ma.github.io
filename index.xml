@@ -6,10 +6,283 @@
     <description>Recent content on Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 30 Jun 2018 13:54:34 +1000</lastBuildDate>
+    <lastBuildDate>Mon, 02 Jul 2018 21:34:19 +1000</lastBuildDate>
     
         <atom:link href="https://www.shenyan.me/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Java 8 Stream Sql Group By</title>
+      <link>https://www.shenyan.me/java/java-8-stream-sql-group-by/</link>
+      <pubDate>Mon, 02 Jul 2018 21:34:19 +1000</pubDate>
+      
+      <guid>https://www.shenyan.me/java/java-8-stream-sql-group-by/</guid>
+      <description>
+
+&lt;p&gt;This is a scenario that I faced in the real world. I had to query data from multiple data source and merge them and also need to aggregate data by three fields manually.&lt;/p&gt;
+
+&lt;p&gt;Here is how I solved it using Java 8 stream API.&lt;/p&gt;
+
+&lt;p&gt;Firstly, &lt;code&gt;Collectors.groupBy&lt;/code&gt; is used nestly to group by the three fields.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;data.stream()
+        .collect(Collectors.groupingBy(Data::getDcId,
+                Collectors.groupingBy(Data::getDbGroup,
+                Collectors.groupingBy(Data::getWeek,
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then &lt;code&gt;Collectors.reducing&lt;/code&gt; is used to aggregate grouped data.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;data.stream()
+        .collect(
+            ...
+                Collectors.reducing(Data::merge)))))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;At this stage &lt;code&gt;Map&amp;lt;String, Map&amp;lt;String, Map&amp;lt;String, Optional&amp;lt;Data&amp;gt;&amp;gt;&amp;gt;&amp;gt;&lt;/code&gt; is returned. &lt;code&gt;flatMap&lt;/code&gt; is used twice to convert the nested map to a &lt;code&gt;Optional&amp;lt;Data&amp;gt;&lt;/code&gt; stream.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;data.stream()
+        .collect(
+            ...
+                )
+    .values().stream()
+                .flatMap(v -&amp;gt; v.values().stream())
+                .flatMap(v -&amp;gt; v.values().stream())
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;sorted&lt;/code&gt; is used to sort the result stream.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;.sorted(Comparator.comparing(Data::getDcId)
+            .thenComparing(Comparator.comparing(Data::getDbGroup))
+            .thenComparing(Comparator.comparing(Data::getWeek)))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Finally, we collect the stream as list by using &lt;code&gt;Collectors.toList&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public static void main(String[] args) {
+    List&amp;lt;Data&amp;gt; data = Arrays.asList(
+            new Data(&amp;quot;dc000&amp;quot;, &amp;quot;dbGroup01&amp;quot;, &amp;quot;week1&amp;quot;, 111L, 211L, 311L, 411L),
+            new Data(&amp;quot;dc000&amp;quot;, &amp;quot;dbGroup02&amp;quot;, &amp;quot;week1&amp;quot;, 121L, 221L, 321L, 421L),
+            new Data(&amp;quot;dc000&amp;quot;, &amp;quot;dbGroup01&amp;quot;, &amp;quot;week1&amp;quot;, 131L, 231L, 331L, 431L),
+            new Data(&amp;quot;dc000&amp;quot;, &amp;quot;dbGroup02&amp;quot;, &amp;quot;week1&amp;quot;, 141L, 241L, 341L, 441L),
+            new Data(&amp;quot;dc000&amp;quot;, &amp;quot;dbGroup01&amp;quot;, &amp;quot;week2&amp;quot;, 112L, 212L, 312L, 412L),
+            new Data(&amp;quot;dc000&amp;quot;, &amp;quot;dbGroup02&amp;quot;, &amp;quot;week2&amp;quot;, 122L, 222L, 322L, 422L),
+            new Data(&amp;quot;dc000&amp;quot;, &amp;quot;dbGroup01&amp;quot;, &amp;quot;week2&amp;quot;, 132L, 232L, 332L, 432L),
+            new Data(&amp;quot;dc000&amp;quot;, &amp;quot;dbGroup02&amp;quot;, &amp;quot;week2&amp;quot;, 142L, 242L, 342L, 442L),
+            new Data(&amp;quot;dc001&amp;quot;, &amp;quot;dbGroup01&amp;quot;, &amp;quot;week1&amp;quot;, 111L, 211L, 311L, 411L),
+            new Data(&amp;quot;dc001&amp;quot;, &amp;quot;dbGroup02&amp;quot;, &amp;quot;week1&amp;quot;, 121L, 221L, 321L, 421L),
+            new Data(&amp;quot;dc001&amp;quot;, &amp;quot;dbGroup01&amp;quot;, &amp;quot;week1&amp;quot;, 131L, 231L, 331L, 431L),
+            new Data(&amp;quot;dc001&amp;quot;, &amp;quot;dbGroup02&amp;quot;, &amp;quot;week1&amp;quot;, 141L, 241L, 341L, 441L),
+            new Data(&amp;quot;dc001&amp;quot;, &amp;quot;dbGroup01&amp;quot;, &amp;quot;week2&amp;quot;, 112L, 212L, 312L, 412L),
+            new Data(&amp;quot;dc001&amp;quot;, &amp;quot;dbGroup02&amp;quot;, &amp;quot;week2&amp;quot;, 122L, 222L, 322L, 422L),
+            new Data(&amp;quot;dc001&amp;quot;, &amp;quot;dbGroup01&amp;quot;, &amp;quot;week2&amp;quot;, 132L, 232L, 332L, 432L),
+            new Data(&amp;quot;dc001&amp;quot;, &amp;quot;dbGroup02&amp;quot;, &amp;quot;week2&amp;quot;, 142L, 242L, 342L, 442L)
+    );
+    System.out.println(&amp;quot;Before merge:&amp;quot;);
+    data.forEach(System.out::println);
+    List&amp;lt;Data&amp;gt; mergedData = data.stream()
+        .collect(Collectors.groupingBy(Data::getDcId,
+                Collectors.groupingBy(Data::getDbGroup,
+                Collectors.groupingBy(Data::getWeek,
+                        Collectors.reducing(Data::merge)))))
+        .values().stream()
+                .flatMap(v -&amp;gt; v.values().stream())
+                .flatMap(v -&amp;gt; v.values().stream())
+                .map(Optional::get)
+                .sorted(Comparator.comparing(Data::getDcId)
+                        .thenComparing(Comparator.comparing(Data::getDbGroup))
+                        .thenComparing(Comparator.comparing(Data::getWeek)))
+                .collect(Collectors.toList());
+    System.out.println(&amp;quot;After merge:&amp;quot;);
+    mergedData.forEach(System.out::println);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Output:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Before merge:
+Data{dcId=&#39;dc000&#39;, dbGroup=&#39;dbGroup01&#39;, week=&#39;week1&#39;, acctVal=111, shopVal=211, partVal=311, backVal=411}
+Data{dcId=&#39;dc000&#39;, dbGroup=&#39;dbGroup02&#39;, week=&#39;week1&#39;, acctVal=121, shopVal=221, partVal=321, backVal=421}
+Data{dcId=&#39;dc000&#39;, dbGroup=&#39;dbGroup01&#39;, week=&#39;week1&#39;, acctVal=131, shopVal=231, partVal=331, backVal=431}
+Data{dcId=&#39;dc000&#39;, dbGroup=&#39;dbGroup02&#39;, week=&#39;week1&#39;, acctVal=141, shopVal=241, partVal=341, backVal=441}
+Data{dcId=&#39;dc000&#39;, dbGroup=&#39;dbGroup01&#39;, week=&#39;week2&#39;, acctVal=112, shopVal=212, partVal=312, backVal=412}
+Data{dcId=&#39;dc000&#39;, dbGroup=&#39;dbGroup02&#39;, week=&#39;week2&#39;, acctVal=122, shopVal=222, partVal=322, backVal=422}
+Data{dcId=&#39;dc000&#39;, dbGroup=&#39;dbGroup01&#39;, week=&#39;week2&#39;, acctVal=132, shopVal=232, partVal=332, backVal=432}
+Data{dcId=&#39;dc000&#39;, dbGroup=&#39;dbGroup02&#39;, week=&#39;week2&#39;, acctVal=142, shopVal=242, partVal=342, backVal=442}
+Data{dcId=&#39;dc001&#39;, dbGroup=&#39;dbGroup01&#39;, week=&#39;week1&#39;, acctVal=111, shopVal=211, partVal=311, backVal=411}
+Data{dcId=&#39;dc001&#39;, dbGroup=&#39;dbGroup02&#39;, week=&#39;week1&#39;, acctVal=121, shopVal=221, partVal=321, backVal=421}
+Data{dcId=&#39;dc001&#39;, dbGroup=&#39;dbGroup01&#39;, week=&#39;week1&#39;, acctVal=131, shopVal=231, partVal=331, backVal=431}
+Data{dcId=&#39;dc001&#39;, dbGroup=&#39;dbGroup02&#39;, week=&#39;week1&#39;, acctVal=141, shopVal=241, partVal=341, backVal=441}
+Data{dcId=&#39;dc001&#39;, dbGroup=&#39;dbGroup01&#39;, week=&#39;week2&#39;, acctVal=112, shopVal=212, partVal=312, backVal=412}
+Data{dcId=&#39;dc001&#39;, dbGroup=&#39;dbGroup02&#39;, week=&#39;week2&#39;, acctVal=122, shopVal=222, partVal=322, backVal=422}
+Data{dcId=&#39;dc001&#39;, dbGroup=&#39;dbGroup01&#39;, week=&#39;week2&#39;, acctVal=132, shopVal=232, partVal=332, backVal=432}
+Data{dcId=&#39;dc001&#39;, dbGroup=&#39;dbGroup02&#39;, week=&#39;week2&#39;, acctVal=142, shopVal=242, partVal=342, backVal=442}
+After merge:
+Data{dcId=&#39;dc000&#39;, dbGroup=&#39;dbGroup01&#39;, week=&#39;week1&#39;, acctVal=242, shopVal=442, partVal=642, backVal=842}
+Data{dcId=&#39;dc000&#39;, dbGroup=&#39;dbGroup01&#39;, week=&#39;week2&#39;, acctVal=244, shopVal=444, partVal=644, backVal=844}
+Data{dcId=&#39;dc000&#39;, dbGroup=&#39;dbGroup02&#39;, week=&#39;week1&#39;, acctVal=262, shopVal=462, partVal=662, backVal=862}
+Data{dcId=&#39;dc000&#39;, dbGroup=&#39;dbGroup02&#39;, week=&#39;week2&#39;, acctVal=264, shopVal=464, partVal=664, backVal=864}
+Data{dcId=&#39;dc001&#39;, dbGroup=&#39;dbGroup01&#39;, week=&#39;week1&#39;, acctVal=242, shopVal=442, partVal=642, backVal=842}
+Data{dcId=&#39;dc001&#39;, dbGroup=&#39;dbGroup01&#39;, week=&#39;week2&#39;, acctVal=244, shopVal=444, partVal=644, backVal=844}
+Data{dcId=&#39;dc001&#39;, dbGroup=&#39;dbGroup02&#39;, week=&#39;week1&#39;, acctVal=262, shopVal=462, partVal=662, backVal=862}
+Data{dcId=&#39;dc001&#39;, dbGroup=&#39;dbGroup02&#39;, week=&#39;week2&#39;, acctVal=264, shopVal=464, partVal=664, backVal=864}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here is the full source:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;package example;
+
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+public class DataGroupByTest {
+    public static void main(String[] args) {
+        List&amp;lt;Data&amp;gt; data = Arrays.asList(
+                new Data(&amp;quot;dc000&amp;quot;, &amp;quot;dbGroup01&amp;quot;, &amp;quot;week1&amp;quot;, 111L, 211L, 311L, 411L),
+                new Data(&amp;quot;dc000&amp;quot;, &amp;quot;dbGroup02&amp;quot;, &amp;quot;week1&amp;quot;, 121L, 221L, 321L, 421L),
+                new Data(&amp;quot;dc000&amp;quot;, &amp;quot;dbGroup01&amp;quot;, &amp;quot;week1&amp;quot;, 131L, 231L, 331L, 431L),
+                new Data(&amp;quot;dc000&amp;quot;, &amp;quot;dbGroup02&amp;quot;, &amp;quot;week1&amp;quot;, 141L, 241L, 341L, 441L),
+                new Data(&amp;quot;dc000&amp;quot;, &amp;quot;dbGroup01&amp;quot;, &amp;quot;week2&amp;quot;, 112L, 212L, 312L, 412L),
+                new Data(&amp;quot;dc000&amp;quot;, &amp;quot;dbGroup02&amp;quot;, &amp;quot;week2&amp;quot;, 122L, 222L, 322L, 422L),
+                new Data(&amp;quot;dc000&amp;quot;, &amp;quot;dbGroup01&amp;quot;, &amp;quot;week2&amp;quot;, 132L, 232L, 332L, 432L),
+                new Data(&amp;quot;dc000&amp;quot;, &amp;quot;dbGroup02&amp;quot;, &amp;quot;week2&amp;quot;, 142L, 242L, 342L, 442L),
+                new Data(&amp;quot;dc001&amp;quot;, &amp;quot;dbGroup01&amp;quot;, &amp;quot;week1&amp;quot;, 111L, 211L, 311L, 411L),
+                new Data(&amp;quot;dc001&amp;quot;, &amp;quot;dbGroup02&amp;quot;, &amp;quot;week1&amp;quot;, 121L, 221L, 321L, 421L),
+                new Data(&amp;quot;dc001&amp;quot;, &amp;quot;dbGroup01&amp;quot;, &amp;quot;week1&amp;quot;, 131L, 231L, 331L, 431L),
+                new Data(&amp;quot;dc001&amp;quot;, &amp;quot;dbGroup02&amp;quot;, &amp;quot;week1&amp;quot;, 141L, 241L, 341L, 441L),
+                new Data(&amp;quot;dc001&amp;quot;, &amp;quot;dbGroup01&amp;quot;, &amp;quot;week2&amp;quot;, 112L, 212L, 312L, 412L),
+                new Data(&amp;quot;dc001&amp;quot;, &amp;quot;dbGroup02&amp;quot;, &amp;quot;week2&amp;quot;, 122L, 222L, 322L, 422L),
+                new Data(&amp;quot;dc001&amp;quot;, &amp;quot;dbGroup01&amp;quot;, &amp;quot;week2&amp;quot;, 132L, 232L, 332L, 432L),
+                new Data(&amp;quot;dc001&amp;quot;, &amp;quot;dbGroup02&amp;quot;, &amp;quot;week2&amp;quot;, 142L, 242L, 342L, 442L)
+        );
+        System.out.println(&amp;quot;Before merge:&amp;quot;);
+        data.forEach(System.out::println);
+        List&amp;lt;Data&amp;gt; mergedData = data.stream().collect(Collectors.groupingBy(Data::getDcId,
+                Collectors.groupingBy(Data::getDbGroup,
+                        Collectors.groupingBy(Data::getWeek,
+                                Collectors.reducing(Data::merge)))))
+                .values().stream()
+                            .flatMap(v -&amp;gt; v.values().stream())
+                            .flatMap(v -&amp;gt; v.values().stream())
+                            .map(Optional::get)
+                            .sorted(Comparator.comparing(Data::getDcId)
+                                    .thenComparing(Comparator.comparing(Data::getDbGroup))
+                                    .thenComparing(Comparator.comparing(Data::getWeek)))
+                            .collect(Collectors.toList());
+        System.out.println(&amp;quot;After merge:&amp;quot;);
+        mergedData.forEach(System.out::println);
+    }
+
+    public static class Data {
+        private String dcId;
+        private String dbGroup;
+        private String week;
+        private Long acctVal;
+        private Long shopVal;
+        private Long partVal;
+        private Long backVal;
+
+        public String getDcId() {
+            return dcId;
+        }
+
+        public void setDcId(String dcId) {
+            this.dcId = dcId;
+        }
+
+        public String getDbGroup() {
+            return dbGroup;
+        }
+
+        public void setDbGroup(String dbGroup) {
+            this.dbGroup = dbGroup;
+        }
+
+        public String getWeek() {
+            return week;
+        }
+
+        public void setWeek(String week) {
+            this.week = week;
+        }
+
+        public Long getAcctVal() {
+            return acctVal;
+        }
+
+        public void setAcctVal(Long acctVal) {
+            this.acctVal = acctVal;
+        }
+
+        public Long getShopVal() {
+            return shopVal;
+        }
+
+        public void setShopVal(Long shopVal) {
+            this.shopVal = shopVal;
+        }
+
+        public Long getPartVal() {
+            return partVal;
+        }
+
+        public void setPartVal(Long partVal) {
+            this.partVal = partVal;
+        }
+
+        public Long getBackVal() {
+            return backVal;
+        }
+
+        public void setBackVal(Long backVal) {
+            this.backVal = backVal;
+        }
+
+        public Data(String dcId, String dbGroup, String week, Long acctVal, Long shopVal, Long partVal, Long backVal) {
+            this.dcId = dcId;
+            this.dbGroup = dbGroup;
+            this.week = week;
+            this.acctVal = acctVal;
+            this.shopVal = shopVal;
+            this.partVal = partVal;
+            this.backVal = backVal;
+        }
+
+        public Data merge(Data other) {
+            this.acctVal = this.acctVal + other.acctVal;
+            this.shopVal = this.shopVal + other.shopVal;
+            this.partVal = this.partVal + other.partVal;
+            this.backVal = this.backVal + other.backVal;
+            return this;
+        }
+
+        @Override
+        public String toString() {
+            return &amp;quot;Data{&amp;quot; +
+                    &amp;quot;dcId=&#39;&amp;quot; + dcId + &#39;\&#39;&#39; +
+                    &amp;quot;, dbGroup=&#39;&amp;quot; + dbGroup + &#39;\&#39;&#39; +
+                    &amp;quot;, week=&#39;&amp;quot; + week + &#39;\&#39;&#39; +
+                    &amp;quot;, acctVal=&amp;quot; + acctVal +
+                    &amp;quot;, shopVal=&amp;quot; + shopVal +
+                    &amp;quot;, partVal=&amp;quot; + partVal +
+                    &amp;quot;, backVal=&amp;quot; + backVal +
+                    &#39;}&#39;;
+        }
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;reference&#34;&gt;Reference:&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;1. &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html&#34;&gt;Java 8 Collectors&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>Hugo Rust Shortcodes</title>

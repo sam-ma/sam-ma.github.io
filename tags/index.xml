@@ -23,7 +23,7 @@
     <item>
       <title>Example</title>
       <link>https://www.shenyan.me/tags/example/</link>
-      <pubDate>Wed, 27 Jun 2018 21:25:31 +1000</pubDate>
+      <pubDate>Mon, 02 Jul 2018 21:34:19 +1000</pubDate>
       
       <guid>https://www.shenyan.me/tags/example/</guid>
       <description></description>
@@ -35,6 +35,15 @@
       <pubDate>Sat, 30 Jun 2018 13:54:34 +1000</pubDate>
       
       <guid>https://www.shenyan.me/tags/hugo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Java</title>
+      <link>https://www.shenyan.me/tags/java/</link>
+      <pubDate>Mon, 02 Jul 2018 21:34:19 +1000</pubDate>
+      
+      <guid>https://www.shenyan.me/tags/java/</guid>
       <description></description>
     </item>
     
@@ -71,6 +80,15 @@
       <pubDate>Sat, 30 Jun 2018 13:54:34 +1000</pubDate>
       
       <guid>https://www.shenyan.me/tags/rust/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Stream</title>
+      <link>https://www.shenyan.me/tags/stream/</link>
+      <pubDate>Mon, 02 Jul 2018 21:34:19 +1000</pubDate>
+      
+      <guid>https://www.shenyan.me/tags/stream/</guid>
       <description></description>
     </item>
     

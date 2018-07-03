@@ -33,7 +33,7 @@ Map&amp;lt;String, Student&amp;gt; map = studentSet.stream()
 
 &lt;p&gt;The first argument is a mapping &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html&#34;&gt;&lt;code&gt;Function&lt;/code&gt;&lt;/a&gt; to produce keys. Here &lt;a href=&#34;https://docs.oracle.com/javase/tutorial/java/javaOO/methodreferences.html&#34;&gt;method reference&lt;/a&gt; &lt;code&gt;Student::getId&lt;/code&gt; is specified. Semantically it is the same as the lambda expression &lt;code&gt;student -&amp;gt; student.getId()&lt;/code&gt;.&lt;/p&gt;
 
-&lt;p&gt;The second argument is a mapping &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html&#34;&gt;&lt;code&gt;Function&lt;/code&gt;&lt;/a&gt; to produce values. Here &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html#identity--&#34;&gt;&amp;lsquo;Function.identity&amp;rsquo;&lt;/a&gt; is used which is semantically the same as the lambda expression &lt;code&gt;student -&amp;gt; student&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The second argument is a mapping &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html&#34;&gt;&lt;code&gt;Function&lt;/code&gt;&lt;/a&gt; to produce values. Here &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html#identity--&#34;&gt;&lt;code&gt;Function.identity&lt;/code&gt;&lt;/a&gt; is used which is semantically the same as the lambda expression &lt;code&gt;student -&amp;gt; student&lt;/code&gt;.&lt;/p&gt;
 
 &lt;h2 id=&#34;reference&#34;&gt;Reference:&lt;/h2&gt;
 

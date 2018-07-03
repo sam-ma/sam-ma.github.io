@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>Java 8 Stream Set to Map</title>
+	
+	<meta name="description" content="">
+	<meta name="image" content="">
+	
+	<meta itemprop="name" content="Java 8 Stream Set to Map">
+	<meta itemprop="description" content="">
+	<meta itemprop="image" content="">
+	
+	<meta name="og:title" content="Java 8 Stream Set to Map">
+	<meta name="og:description" content="">
+	
+	<meta name="og:url" content="https://www.shenyan.me/java/java-8-stream-set-to-map/">
+	<meta name="og:site_name" content="Java 8 Stream Set to Map">
+	<meta name="og:type" content="article">
+	
+	<meta name="article:tag" content="java stream example ">
+	<link rel="stylesheet" type="text/css" href="https://www.shenyan.me/css/style.css">
+	<link rel="stylesheet" type="text/css" href="https://www.shenyan.me/css/rust.css">
+	
+	
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-120740855-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+	
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/java.min.js"></script>
+	
+
+	
+
+	
+	<script>hljs.initHighlightingOnLoad();</script>
+	
+
+	
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<script>
+	(adsbygoogle = window.adsbygoogle || []).push({
+		google_ad_client: "ca-pub-4978414475046912",
+		enable_page_level_ads: true
+	});
+	</script>
+</head>
+
+<body class="light">
+
+<header>
+	
+	<a href="https://www.shenyan.me/" style="float: left;color:#777;"><strong>Home</strong></a>
+	
+	&nbsp;&nbsp;<a href="https://www.shenyan.me/archives/" style="color:#777;"><strong>Archives</strong></a>&nbsp;&nbsp;
+	
+	
+	
+	<a href="https://www.shenyan.me/index.xml" style="color:#777;float: right;"><strong><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></strong></a>
+</header>
+
+
+<div id="loadingMask" style="width: 100%; height: 100%; position: fixed; background: #fff;"></div>
+<script>
+function fadeOut(el) {
+  el.style.opacity = 1;
+
+  var last = +new Date();
+  var tick = function() {
+    el.style.opacity = +el.style.opacity - (new Date() - last) / 80;
+    last = +new Date();
+    
+
+    if (el.style.opacity > 0) {
+      (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+    } else {
+      el.style.display='none';
+    }
+  };
+
+  tick();
+}
+
+function ready(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+         el = document.getElementById('loadingMask');
+         fadeOut(el);
+        var elements = document.querySelectorAll("img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("alt")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("alt"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+
+    } else {
+        document.addEventListener('DOMContentLoaded', fn);
+    }
+}
+window.onload = ready;
+</script>
+
+<div class="content">
+  <h1>Java 8 Stream Set to Map <aside>Last modified at: &nbsp;&nbsp;July 3, 2018&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/tags/java/">java</a>&nbsp;&nbsp;&nbsp;<a href="/tags/stream/">stream</a>&nbsp;&nbsp;&nbsp;<a href="/tags/example/">example</a>&nbsp;&nbsp;&nbsp;</aside></h1>
+
+  
+
+<p>Say you have a <code>Set</code> of <code>Student</code>, you would like to convert it into a <code>Map</code> where key is the <code>ID</code> of the <code>Student</code> and value is the <code>Student</code> object itself.</p>
+
+<p>Here is how it can be done by using Java 8 Stream API.</p>
+
+<pre><code>Set&lt;Student&gt; studentSet = ...
+Map&lt;String, Student&gt; map = studentSet.stream()
+                                .collect(Collectors.toMap(Student::getId,
+                                            Function.identity()));
+</code></pre>
+
+<p><a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html#toMap-java.util.function.Function-java.util.function.Function-"><code>Collectors.toMap</code></a> is used to collect the stream as <code>Map</code>.</p>
+
+<p>The first argument is a mapping <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html"><code>Function</code></a> to produce keys. Here <a href="https://docs.oracle.com/javase/tutorial/java/javaOO/methodreferences.html">method reference</a> <code>Student::getId</code> is specified. Semantically it is the same as the lambda expression <code>student -&gt; student.getId()</code>.</p>
+
+<p>The second argument is a mapping <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html"><code>Function</code></a> to produce values. Here <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html#identity--">&lsquo;Function.identity&rsquo;</a> is used which is semantically the same as the lambda expression <code>student -&gt; student</code>.</p>
+
+<h2 id="reference">Reference:</h2>
+
+<ul>
+<li>1. <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html">Java 8 Collectors</a></li>
+</ul>
+
+</div>
+
+
+
+
+<footer>
+	<p>© 2018, all rights reserved.</a>
+</footer>
+
+</body>
+</html>
+

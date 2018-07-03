@@ -4,20 +4,20 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
-	<title>Java 8 Stream Sql Group By</title>
+	<title>Java 8 Stream SQL Group By</title>
 	
 	<meta name="description" content="">
 	<meta name="image" content="">
 	
-	<meta itemprop="name" content="Java 8 Stream Sql Group By">
+	<meta itemprop="name" content="Java 8 Stream SQL Group By">
 	<meta itemprop="description" content="">
 	<meta itemprop="image" content="">
 	
-	<meta name="og:title" content="Java 8 Stream Sql Group By">
+	<meta name="og:title" content="Java 8 Stream SQL Group By">
 	<meta name="og:description" content="">
 	
 	<meta name="og:url" content="https://www.shenyan.me/java/java-8-stream-sql-group-by/">
-	<meta name="og:site_name" content="Java 8 Stream Sql Group By">
+	<meta name="og:site_name" content="Java 8 Stream SQL Group By">
 	<meta name="og:type" content="article">
 	
 	<meta name="article:tag" content="java stream example ">
@@ -122,15 +122,19 @@ window.onload = ready;
 </script>
 
 <div class="content">
-  <h1>Java 8 Stream Sql Group By <aside>Last modified at: &nbsp;&nbsp;July 2, 2018&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/tags/java/">java</a>&nbsp;&nbsp;&nbsp;<a href="/tags/stream/">stream</a>&nbsp;&nbsp;&nbsp;<a href="/tags/example/">example</a>&nbsp;&nbsp;&nbsp;</aside></h1>
+  <h1>Java 8 Stream SQL Group By <aside>Last modified at: &nbsp;&nbsp;July 3, 2018&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/tags/java/">java</a>&nbsp;&nbsp;&nbsp;<a href="/tags/stream/">stream</a>&nbsp;&nbsp;&nbsp;<a href="/tags/example/">example</a>&nbsp;&nbsp;&nbsp;</aside></h1>
 
   
 
-<p>This is a scenario that I faced in the real world. I had to query data from multiple data source and merge them and also need to aggregate data by three fields manually.</p>
+<p>This is a scenario that I faced in the real world. I had to query data from multiple sources and merge/aggregate by multiple fields manually.</p>
 
-<p>Here is how I solved it using Java 8 stream API.</p>
+<p>Here is how I solved it by using Java 8 stream API.</p>
 
-<p>Firstly, <code>Collectors.groupBy</code> is used nestly to group by the three fields.</p>
+<p>Firstly, <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html#groupingBy-java.util.function.Function-java.util.stream.Collector-"><code>Collectors.groupingBy</code></a> is used nestly to group by the three fields.</p>
+
+<p>The first argument is a <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html"><code>Function</code></a> which representing the classifier. Here <a href="https://docs.oracle.com/javase/tutorial/java/javaOO/methodreferences.html">method reference</a> <code>Data::getDcId</code> is specified. Semantically it is the same as the lambda expression <code>data -&gt; data.getDcId()</code>.</p>
+
+<p>The second argument let us specify another <code>Collector</code> which is called a <strong>downstream</strong> collector.</p>
 
 <pre><code>data.stream()
         .collect(Collectors.groupingBy(Data::getDcId,
@@ -138,7 +142,7 @@ window.onload = ready;
                 Collectors.groupingBy(Data::getWeek,
 </code></pre>
 
-<p>Then <code>Collectors.reducing</code> is used to aggregate grouped data.</p>
+<p>Then <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html#reducing-java.util.function.BinaryOperator-"><code>Collectors.reducing</code></a> is used to aggregate grouped data. The argument is a <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/BinaryOperator.html"><code>BinaryOperator</code></a> which is a specialization of <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/BiFunction.html"><code>BiFunction</code></a> where the two operands and the result are all of the same type.</p>
 
 <pre><code>data.stream()
         .collect(
@@ -146,7 +150,7 @@ window.onload = ready;
                 Collectors.reducing(Data::merge)))))
 </code></pre>
 
-<p>At this stage <code>Map&lt;String, Map&lt;String, Map&lt;String, Optional&lt;Data&gt;&gt;&gt;&gt;</code> is returned. <code>flatMap</code> is used twice to convert the nested map to a <code>Optional&lt;Data&gt;</code> stream.</p>
+<p>At this stage <code>Map&lt;String, Map&lt;String, Map&lt;String, Optional&lt;Data&gt;&gt;&gt;&gt;</code> is returned. <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#flatMap-java.util.function.Function-"><code>flatMap</code></a> is used twice to convert the nested map to a <code>Optional&lt;Data&gt;</code> stream.</p>
 
 <pre><code>data.stream()
         .collect(
@@ -157,14 +161,14 @@ window.onload = ready;
                 .flatMap(v -&gt; v.values().stream())
 </code></pre>
 
-<p><code>sorted</code> is used to sort the result stream.</p>
+<p>We also want to get an ordered result. So <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#sorted-java.util.Comparator-"><code>sorted</code></a> is used to sort the result stream. To specify multiple fields to sort on, <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#comparing-java.util.function.Function-"><code>Comparator.comparing</code></a> combined with <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparing-java.util.Comparator-"><code>thenComparing</code></a> are used as shown below.</p>
 
 <pre><code>.sorted(Comparator.comparing(Data::getDcId)
             .thenComparing(Comparator.comparing(Data::getDbGroup))
             .thenComparing(Comparator.comparing(Data::getWeek)))
 </code></pre>
 
-<p>Finally, we collect the stream as list by using <code>Collectors.toList</code>.</p>
+<p>Finally, we collect the result stream as list by using <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html#toList--"><code>Collectors.toList</code></a>.</p>
 
 <pre><code>public static void main(String[] args) {
     List&lt;Data&gt; data = Arrays.asList(

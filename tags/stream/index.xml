@@ -12,18 +12,22 @@
     
     
     <item>
-      <title>Java 8 Stream Sql Group By</title>
+      <title>Java 8 Stream SQL Group By</title>
       <link>https://www.shenyan.me/java/java-8-stream-sql-group-by/</link>
       <pubDate>Mon, 02 Jul 2018 21:34:19 +1000</pubDate>
       
       <guid>https://www.shenyan.me/java/java-8-stream-sql-group-by/</guid>
       <description>
 
-&lt;p&gt;This is a scenario that I faced in the real world. I had to query data from multiple data source and merge them and also need to aggregate data by three fields manually.&lt;/p&gt;
+&lt;p&gt;This is a scenario that I faced in the real world. I had to query data from multiple sources and merge/aggregate by multiple fields manually.&lt;/p&gt;
 
-&lt;p&gt;Here is how I solved it using Java 8 stream API.&lt;/p&gt;
+&lt;p&gt;Here is how I solved it by using Java 8 stream API.&lt;/p&gt;
 
-&lt;p&gt;Firstly, &lt;code&gt;Collectors.groupBy&lt;/code&gt; is used nestly to group by the three fields.&lt;/p&gt;
+&lt;p&gt;Firstly, &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html#groupingBy-java.util.function.Function-java.util.stream.Collector-&#34;&gt;&lt;code&gt;Collectors.groupingBy&lt;/code&gt;&lt;/a&gt; is used nestly to group by the three fields.&lt;/p&gt;
+
+&lt;p&gt;The first argument is a &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html&#34;&gt;&lt;code&gt;Function&lt;/code&gt;&lt;/a&gt; which representing the classifier. Here &lt;a href=&#34;https://docs.oracle.com/javase/tutorial/java/javaOO/methodreferences.html&#34;&gt;method reference&lt;/a&gt; &lt;code&gt;Data::getDcId&lt;/code&gt; is specified. Semantically it is the same as the lambda expression &lt;code&gt;data -&amp;gt; data.getDcId()&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The second argument let us specify another &lt;code&gt;Collector&lt;/code&gt; which is called a &lt;strong&gt;downstream&lt;/strong&gt; collector.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;data.stream()
         .collect(Collectors.groupingBy(Data::getDcId,
@@ -31,7 +35,7 @@
                 Collectors.groupingBy(Data::getWeek,
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Then &lt;code&gt;Collectors.reducing&lt;/code&gt; is used to aggregate grouped data.&lt;/p&gt;
+&lt;p&gt;Then &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html#reducing-java.util.function.BinaryOperator-&#34;&gt;&lt;code&gt;Collectors.reducing&lt;/code&gt;&lt;/a&gt; is used to aggregate grouped data. The argument is a &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/api/java/util/function/BinaryOperator.html&#34;&gt;&lt;code&gt;BinaryOperator&lt;/code&gt;&lt;/a&gt; which is a specialization of &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/api/java/util/function/BiFunction.html&#34;&gt;&lt;code&gt;BiFunction&lt;/code&gt;&lt;/a&gt; where the two operands and the result are all of the same type.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;data.stream()
         .collect(
@@ -39,7 +43,7 @@
                 Collectors.reducing(Data::merge)))))
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;At this stage &lt;code&gt;Map&amp;lt;String, Map&amp;lt;String, Map&amp;lt;String, Optional&amp;lt;Data&amp;gt;&amp;gt;&amp;gt;&amp;gt;&lt;/code&gt; is returned. &lt;code&gt;flatMap&lt;/code&gt; is used twice to convert the nested map to a &lt;code&gt;Optional&amp;lt;Data&amp;gt;&lt;/code&gt; stream.&lt;/p&gt;
+&lt;p&gt;At this stage &lt;code&gt;Map&amp;lt;String, Map&amp;lt;String, Map&amp;lt;String, Optional&amp;lt;Data&amp;gt;&amp;gt;&amp;gt;&amp;gt;&lt;/code&gt; is returned. &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#flatMap-java.util.function.Function-&#34;&gt;&lt;code&gt;flatMap&lt;/code&gt;&lt;/a&gt; is used twice to convert the nested map to a &lt;code&gt;Optional&amp;lt;Data&amp;gt;&lt;/code&gt; stream.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;data.stream()
         .collect(
@@ -50,14 +54,14 @@
                 .flatMap(v -&amp;gt; v.values().stream())
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;code&gt;sorted&lt;/code&gt; is used to sort the result stream.&lt;/p&gt;
+&lt;p&gt;We also want to get an ordered result. So &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#sorted-java.util.Comparator-&#34;&gt;&lt;code&gt;sorted&lt;/code&gt;&lt;/a&gt; is used to sort the result stream. To specify multiple fields to sort on, &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#comparing-java.util.function.Function-&#34;&gt;&lt;code&gt;Comparator.comparing&lt;/code&gt;&lt;/a&gt; combined with &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparing-java.util.Comparator-&#34;&gt;&lt;code&gt;thenComparing&lt;/code&gt;&lt;/a&gt; are used as shown below.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;.sorted(Comparator.comparing(Data::getDcId)
             .thenComparing(Comparator.comparing(Data::getDbGroup))
             .thenComparing(Comparator.comparing(Data::getWeek)))
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Finally, we collect the stream as list by using &lt;code&gt;Collectors.toList&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Finally, we collect the result stream as list by using &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html#toList--&#34;&gt;&lt;code&gt;Collectors.toList&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;public static void main(String[] args) {
     List&amp;lt;Data&amp;gt; data = Arrays.asList(

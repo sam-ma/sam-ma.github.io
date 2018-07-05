@@ -19,14 +19,32 @@
       <guid>https://www.shenyan.me/java/java-8-stream-set-to-map/</guid>
       <description>
 
-&lt;p&gt;Say you have a &lt;code&gt;Set&lt;/code&gt; of &lt;code&gt;Student&lt;/code&gt;, you would like to convert it into a &lt;code&gt;Map&lt;/code&gt; where key is the &lt;code&gt;ID&lt;/code&gt; of the &lt;code&gt;Student&lt;/code&gt; and value is the &lt;code&gt;Student&lt;/code&gt; object itself.&lt;/p&gt;
+&lt;p&gt;Say you have a &lt;code&gt;Set&lt;/code&gt; of &lt;code&gt;Student&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Set&amp;lt;Student&amp;gt; studentSet = ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;[Student{id=&#39;02&#39;, first=&#39;John&#39;, last=&#39;Hay&#39;}
+, Student{id=&#39;03&#39;, first=&#39;Matt&#39;, last=&#39;Simpson&#39;}
+, Student{id=&#39;01&#39;, first=&#39;Dick&#39;, last=&#39;Smith&#39;}
+]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You would like to convert it into a &lt;code&gt;Map&lt;/code&gt; where key is the &lt;code&gt;ID&lt;/code&gt; of the &lt;code&gt;Student&lt;/code&gt; and value is the &lt;code&gt;Student&lt;/code&gt; object itself.&lt;/p&gt;
 
 &lt;p&gt;Here is how it can be done by using Java 8 Stream API.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;Set&amp;lt;Student&amp;gt; studentSet = ...
-Map&amp;lt;String, Student&amp;gt; map = studentSet.stream()
+&lt;pre&gt;&lt;code&gt;Map&amp;lt;String, Student&amp;gt; map = studentSet.stream()
                                 .collect(Collectors.toMap(Student::getId,
                                             Function.identity()));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Output:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{01=Student{id=&#39;01&#39;, first=&#39;Dick&#39;, last=&#39;Smith&#39;}
+, 02=Student{id=&#39;02&#39;, first=&#39;John&#39;, last=&#39;Hay&#39;}
+, 03=Student{id=&#39;03&#39;, first=&#39;Matt&#39;, last=&#39;Simpson&#39;}
+}
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html#toMap-java.util.function.Function-java.util.function.Function-&#34;&gt;&lt;code&gt;Collectors.toMap&lt;/code&gt;&lt;/a&gt; is used to collect the stream as &lt;code&gt;Map&lt;/code&gt;.&lt;/p&gt;
@@ -34,6 +52,79 @@ Map&amp;lt;String, Student&amp;gt; map = studentSet.stream()
 &lt;p&gt;The first argument is a mapping &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html&#34;&gt;&lt;code&gt;Function&lt;/code&gt;&lt;/a&gt; to produce keys. Here &lt;a href=&#34;https://docs.oracle.com/javase/tutorial/java/javaOO/methodreferences.html&#34;&gt;method reference&lt;/a&gt; &lt;code&gt;Student::getId&lt;/code&gt; is specified. Semantically it is the same as the lambda expression &lt;code&gt;student -&amp;gt; student.getId()&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;The second argument is a mapping &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html&#34;&gt;&lt;code&gt;Function&lt;/code&gt;&lt;/a&gt; to produce values. Here &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html#identity--&#34;&gt;&lt;code&gt;Function.identity&lt;/code&gt;&lt;/a&gt; is used which is semantically the same as the lambda expression &lt;code&gt;student -&amp;gt; student&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Here is the full source:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;package example;
+
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+public class SetToMapTest {
+    public static void main(String[] args) {
+        Set&amp;lt;Student&amp;gt; studentSet = new HashSet&amp;lt;&amp;gt;();
+        studentSet.add(new Student(&amp;quot;01&amp;quot;, &amp;quot;Dick&amp;quot;, &amp;quot;Smith&amp;quot;));
+        studentSet.add(new Student(&amp;quot;02&amp;quot;, &amp;quot;John&amp;quot;, &amp;quot;Hay&amp;quot;));
+        studentSet.add(new Student(&amp;quot;03&amp;quot;, &amp;quot;Matt&amp;quot;, &amp;quot;Simpson&amp;quot;));
+        System.out.println(studentSet);
+
+        Map&amp;lt;String, Student&amp;gt; map = studentSet.stream()
+                .collect(Collectors.toMap(Student::getId,
+                        Function.identity()));
+
+        System.out.println(map);
+    }
+
+    public static class Student {
+        private String id;
+        private String first;
+        private String last;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getFirst() {
+            return first;
+        }
+
+        public void setFirst(String first) {
+            this.first = first;
+        }
+
+        public String getLast() {
+            return last;
+        }
+
+        public void setLast(String last) {
+            this.last = last;
+        }
+
+        public Student(String id, String first, String last) {
+            this.id = id;
+            this.first = first;
+            this.last = last;
+        }
+
+        @Override
+        public String toString() {
+            return &amp;quot;Student{&amp;quot; +
+                    &amp;quot;id=&#39;&amp;quot; + id + &#39;\&#39;&#39; +
+                    &amp;quot;, first=&#39;&amp;quot; + first + &#39;\&#39;&#39; +
+                    &amp;quot;, last=&#39;&amp;quot; + last + &#39;\&#39;&#39; +
+                    &amp;quot;}\n&amp;quot;;
+        }
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2 id=&#34;reference&#34;&gt;Reference:&lt;/h2&gt;
 

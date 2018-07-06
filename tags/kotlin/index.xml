@@ -6,10 +6,176 @@
     <description>Recent content in Kotlin on Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 25 Jun 2018 20:51:24 +1000</lastBuildDate>
+    <lastBuildDate>Fri, 06 Jul 2018 20:51:46 +1000</lastBuildDate>
     
         <atom:link href="https://www.shenyan.me/tags/kotlin/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Kotlin SQL Group By</title>
+      <link>https://www.shenyan.me/kotlin/kotlin-sql-group-by/</link>
+      <pubDate>Fri, 06 Jul 2018 20:51:46 +1000</pubDate>
+      
+      <guid>https://www.shenyan.me/kotlin/kotlin-sql-group-by/</guid>
+      <description>
+
+&lt;p&gt;In &lt;a href=&#34;https://www.shenyan.me/java/java-8-stream-sql-group-by&#34;&gt;Java 8 Stream SQL Group By&lt;/a&gt; we explored how to perform SQL similar group by and aggregation by using Java 8 stream API. This time we&amp;rsquo;re going to do it in Kotlin.&lt;/p&gt;
+
+&lt;p&gt;First of all, we use &lt;a href=&#34;https://kotlinlang.org/docs/reference/data-classes.html&#34;&gt;Kotlin Data Class&lt;/a&gt; to implement our &lt;code&gt;Data&lt;/code&gt; class. As you can easily tell, it&amp;rsquo;s much shorter than the Java equivalent.&lt;/p&gt;
+
+&lt;div class=&#34;kotlin-code&#34; 
+    theme=&#34;darcula&#34; 
+    data-target-platform=&#34;java&#34;
+    
+    data-highlight-only &gt;
+    &lt;pre&gt;
+        &lt;code class=&#34;hljs language-kotlin&#34;&gt;
+        
+data class Data(val dcId: String, val dbGroup: String, val week: String, var acctVal: Long, var shopVal: Long, var partVal: Long, var backVal: Long) {
+    fun merge(other: Data): Data {
+        this.acctVal += other.acctVal;
+        this.shopVal += other.shopVal;
+        this.partVal += other.partVal;
+        this.backVal += other.backVal;
+        return this;
+    }
+}
+
+        &lt;/code&gt;
+    &lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;We use the &lt;a href=&#34;https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/list-of.html&#34;&gt;&lt;code&gt;listof&lt;/code&gt;&lt;/a&gt; to initialize our test data, which is similar to &lt;code&gt;Arrays.asList&lt;/code&gt; Java API.&lt;/p&gt;
+
+&lt;p&gt;Our calculation starts from &lt;a href=&#34;https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/group-by.html&#34;&gt;&lt;code&gt;groupBy&lt;/code&gt;&lt;/a&gt; which takes a lambda expression &lt;code&gt;{ it.dcId }&lt;/code&gt; as parameter to specify the groupBy key. After that we will get a &lt;code&gt;Map&amp;lt;String, List&amp;lt;Data&amp;gt;&amp;gt;&lt;/code&gt;, where the key is &lt;code&gt;dcId&lt;/code&gt; and value is a list of &lt;code&gt;Data&lt;/code&gt; associated with the key.&lt;/p&gt;
+
+&lt;p&gt;Then we use &lt;a href=&#34;https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/map-values.html&#34;&gt;&lt;code&gt;mapValues&lt;/code&gt;&lt;/a&gt; to process the grouped list of &lt;code&gt;Data&lt;/code&gt; further. It accepts a transform function. In this function &lt;code&gt;{ it.value.groupBy { it.dbGroup } }&lt;/code&gt; we use &lt;a href=&#34;https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/group-by.html&#34;&gt;&lt;code&gt;groupBy&lt;/code&gt;&lt;/a&gt; again to further group data by &lt;code&gt;dbGroup&lt;/code&gt;. After that we will get a &lt;code&gt;Map&amp;lt;String, Map&amp;lt;String, List&amp;lt;Data&amp;gt;&amp;gt;&amp;gt;&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;We do the same to group data by &lt;code&gt;week&lt;/code&gt; further. At this stage we are done with groupBy. We now use &lt;a href=&#34;https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/reduce.html&#34;&gt;&lt;code&gt;reduce&lt;/code&gt;&lt;/a&gt; to aggregation grouped data.&lt;/p&gt;
+
+&lt;div class=&#34;kotlin-code&#34; 
+    theme=&#34;darcula&#34; 
+    data-target-platform=&#34;java&#34;
+    
+    data-highlight-only &gt;
+    &lt;pre&gt;
+        &lt;code class=&#34;hljs language-kotlin&#34;&gt;
+        
+data.groupBy { it.dcId /* it: Data */ }
+    .mapValues { /* it: Map.Entry&amp;lt;String, List&amp;lt;Data&amp;gt;&amp;gt; */
+        it.value.groupBy { it.dbGroup /* it: Data */ }
+                .mapValues { /* it: Map.Entry&amp;lt;String, List&amp;lt;Data&amp;gt;&amp;gt; */
+                    it.value.groupBy { it.week /* it: Data */ }
+                            .mapValues { /* it: Map.Entry&amp;lt;String, List&amp;lt;Data&amp;gt;&amp;gt; */
+                                it.value.reduce(Data::merge)
+                            }
+                }
+    }
+
+        &lt;/code&gt;
+    &lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Finally we use &lt;a href=&#34;https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/flat-map.html&#34;&gt;&lt;code&gt;flatMap&lt;/code&gt;&lt;/a&gt; and &lt;a href=&#34;https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/map.html&#34;&gt;&lt;code&gt;map&lt;/code&gt;&lt;/a&gt; to collect the result list.&lt;/p&gt;
+
+&lt;div class=&#34;kotlin-code&#34; 
+    theme=&#34;darcula&#34; 
+    data-target-platform=&#34;java&#34;
+    
+    data-highlight-only &gt;
+    &lt;pre&gt;
+        &lt;code class=&#34;hljs language-kotlin&#34;&gt;
+        
+.flatMap { /* it: Map.Entry&amp;lt;String, Map&amp;lt;String, Map&amp;lt;String, Data&amp;gt;&amp;gt;&amp;gt; */
+    it.value.flatMap { /* it: Map.Entry&amp;lt;String, Map&amp;lt;String, Data&amp;gt;&amp;gt; */
+                it.value.map { /* it: Map.Entry&amp;lt;String, Data&amp;gt; */
+                            it.value
+                        }
+            }
+}
+
+        &lt;/code&gt;
+    &lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Here is the full source:
+&lt;div class=&#34;kotlin-code&#34; 
+    theme=&#34;darcula&#34; 
+    data-target-platform=&#34;java&#34;
+    
+     &gt;
+    &lt;pre&gt;
+        &lt;code class=&#34;hljs language-kotlin&#34;&gt;
+        
+data class Data(val dcId: String, val dbGroup: String, val week: String, var acctVal: Long, var shopVal: Long, var partVal: Long, var backVal: Long) {
+    fun merge(other: Data): Data {
+        this.acctVal += other.acctVal;
+        this.shopVal += other.shopVal;
+        this.partVal += other.partVal;
+        this.backVal += other.backVal;
+        return this;
+    }
+}
+
+fun main(args: Array&amp;lt;String&amp;gt;) {
+    val data = listOf(
+            Data(&amp;#34;dc000&amp;#34;, &amp;#34;dbGroup01&amp;#34;, &amp;#34;week1&amp;#34;, 111L, 211L, 311L, 411L),
+            Data(&amp;#34;dc000&amp;#34;, &amp;#34;dbGroup02&amp;#34;, &amp;#34;week1&amp;#34;, 121L, 221L, 321L, 421L),
+            Data(&amp;#34;dc000&amp;#34;, &amp;#34;dbGroup01&amp;#34;, &amp;#34;week1&amp;#34;, 131L, 231L, 331L, 431L),
+            Data(&amp;#34;dc000&amp;#34;, &amp;#34;dbGroup02&amp;#34;, &amp;#34;week1&amp;#34;, 141L, 241L, 341L, 441L),
+            Data(&amp;#34;dc000&amp;#34;, &amp;#34;dbGroup01&amp;#34;, &amp;#34;week2&amp;#34;, 112L, 212L, 312L, 412L),
+            Data(&amp;#34;dc000&amp;#34;, &amp;#34;dbGroup02&amp;#34;, &amp;#34;week2&amp;#34;, 122L, 222L, 322L, 422L),
+            Data(&amp;#34;dc000&amp;#34;, &amp;#34;dbGroup01&amp;#34;, &amp;#34;week2&amp;#34;, 132L, 232L, 332L, 432L),
+            Data(&amp;#34;dc000&amp;#34;, &amp;#34;dbGroup02&amp;#34;, &amp;#34;week2&amp;#34;, 142L, 242L, 342L, 442L),
+            Data(&amp;#34;dc001&amp;#34;, &amp;#34;dbGroup01&amp;#34;, &amp;#34;week1&amp;#34;, 111L, 211L, 311L, 411L),
+            Data(&amp;#34;dc001&amp;#34;, &amp;#34;dbGroup02&amp;#34;, &amp;#34;week1&amp;#34;, 121L, 221L, 321L, 421L),
+            Data(&amp;#34;dc001&amp;#34;, &amp;#34;dbGroup01&amp;#34;, &amp;#34;week1&amp;#34;, 131L, 231L, 331L, 431L),
+            Data(&amp;#34;dc001&amp;#34;, &amp;#34;dbGroup02&amp;#34;, &amp;#34;week1&amp;#34;, 141L, 241L, 341L, 441L),
+            Data(&amp;#34;dc001&amp;#34;, &amp;#34;dbGroup01&amp;#34;, &amp;#34;week2&amp;#34;, 112L, 212L, 312L, 412L),
+            Data(&amp;#34;dc001&amp;#34;, &amp;#34;dbGroup02&amp;#34;, &amp;#34;week2&amp;#34;, 122L, 222L, 322L, 422L),
+            Data(&amp;#34;dc001&amp;#34;, &amp;#34;dbGroup01&amp;#34;, &amp;#34;week2&amp;#34;, 132L, 232L, 332L, 432L),
+            Data(&amp;#34;dc001&amp;#34;, &amp;#34;dbGroup02&amp;#34;, &amp;#34;week2&amp;#34;, 142L, 242L, 342L, 442L)
+    )
+
+    println(&amp;#34;Before merge:&amp;#34;)
+    data.forEach { println(it) }
+    val mergedData /* : List&amp;lt;Data&amp;gt; */ = data.groupBy { it.dcId /* it: Data */ }
+            .mapValues { /* it: Map.Entry&amp;lt;String, List&amp;lt;Data&amp;gt;&amp;gt; */
+                it.value.groupBy { it.dbGroup /* it: Data */ }
+                        .mapValues { /* it: Map.Entry&amp;lt;String, List&amp;lt;Data&amp;gt;&amp;gt; */
+                            it.value.groupBy { it.week /* it: Data */ }
+                                    .mapValues { /* it: Map.Entry&amp;lt;String, List&amp;lt;Data&amp;gt;&amp;gt; */
+                                        it.value.reduce(Data::merge)
+                                    }
+                        }
+            }
+            .flatMap { /* it: Map.Entry&amp;lt;String, Map&amp;lt;String, Map&amp;lt;String, Data&amp;gt;&amp;gt;&amp;gt; */
+                it.value.flatMap { /* it: Map.Entry&amp;lt;String, Map&amp;lt;String, Data&amp;gt;&amp;gt; */
+                            it.value.map { /* it: Map.Entry&amp;lt;String, Data&amp;gt; */
+                                        it.value
+                                    }
+                        }
+            }
+    println(&amp;#34;After merge:&amp;#34;)
+    mergedData.forEach { println(it) }
+}
+
+        &lt;/code&gt;
+    &lt;/pre&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&#34;reference&#34;&gt;Reference:&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;1. &lt;a href=&#34;https://kotlinlang.org/docs/reference/data-classes.html&#34;&gt;Kotlin Data Class&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;2. &lt;a href=&#34;https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/index.html&#34;&gt;Kotlin Collections&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>Hugo Kotlin Shortcodes</title>

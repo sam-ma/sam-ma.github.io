@@ -12,11 +12,11 @@
     
     
     <item>
-      <title>Kotlin SQL Group By</title>
-      <link>https://www.shenyan.me/kotlin/kotlin-sql-group-by/</link>
+      <title>Kotlin Collections SQL Group By</title>
+      <link>https://www.shenyan.me/kotlin/kotlin-collections-sql-group-by/</link>
       <pubDate>Fri, 06 Jul 2018 20:51:46 +1000</pubDate>
       
-      <guid>https://www.shenyan.me/kotlin/kotlin-sql-group-by/</guid>
+      <guid>https://www.shenyan.me/kotlin/kotlin-collections-sql-group-by/</guid>
       <description>
 
 &lt;p&gt;In &lt;a href=&#34;https://www.shenyan.me/java/java-8-stream-sql-group-by&#34;&gt;Java 8 Stream SQL Group By&lt;/a&gt; we explored how to perform SQL similar group by and aggregation by using Java 8 stream API. This time we&amp;rsquo;re going to do it in Kotlin.&lt;/p&gt;

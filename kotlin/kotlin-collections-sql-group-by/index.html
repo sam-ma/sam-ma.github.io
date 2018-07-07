@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>Kotlin Collections SQL Group By</title>
+	
+	<meta name="description" content="">
+	<meta name="image" content="">
+	
+	<meta itemprop="name" content="Kotlin Collections SQL Group By">
+	<meta itemprop="description" content="">
+	<meta itemprop="image" content="">
+	
+	<meta name="og:title" content="Kotlin Collections SQL Group By">
+	<meta name="og:description" content="">
+	
+	<meta name="og:url" content="https://www.shenyan.me/kotlin/kotlin-collections-sql-group-by/">
+	<meta name="og:site_name" content="Kotlin Collections SQL Group By">
+	<meta name="og:type" content="article">
+	
+	<meta name="article:tag" content="kotlin example ">
+	<link rel="stylesheet" type="text/css" href="https://www.shenyan.me/css/style.css">
+	<link rel="stylesheet" type="text/css" href="https://www.shenyan.me/css/rust.css">
+	
+	
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-120740855-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+	
+	
+
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/kotlin.min.js"></script>
+	
+	<script src="https://unpkg.com/kotlin-playground@1" data-selector=".kotlin-code"></script>
+	
+
+	
+	<script>hljs.initHighlightingOnLoad();</script>
+	
+
+	
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<script>
+	(adsbygoogle = window.adsbygoogle || []).push({
+		google_ad_client: "ca-pub-4978414475046912",
+		enable_page_level_ads: true
+	});
+	</script>
+</head>
+
+<body class="light">
+
+<header>
+	
+	<a href="https://www.shenyan.me/" style="float: left;color:#777;"><strong>Home</strong></a>
+	
+	&nbsp;&nbsp;<a href="https://www.shenyan.me/archives/" style="color:#777;"><strong>Archives</strong></a>&nbsp;&nbsp;
+	
+	
+	
+	<a href="https://www.shenyan.me/index.xml" style="color:#777;float: right;"><strong><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></strong></a>
+</header>
+
+
+<div id="loadingMask" style="width: 100%; height: 100%; position: fixed; background: #fff;"></div>
+<script>
+function fadeOut(el) {
+  el.style.opacity = 1;
+
+  var last = +new Date();
+  var tick = function() {
+    el.style.opacity = +el.style.opacity - (new Date() - last) / 80;
+    last = +new Date();
+    
+
+    if (el.style.opacity > 0) {
+      (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+    } else {
+      el.style.display='none';
+    }
+  };
+
+  tick();
+}
+
+function ready(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+         el = document.getElementById('loadingMask');
+         fadeOut(el);
+        var elements = document.querySelectorAll("img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("alt")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("alt"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+
+    } else {
+        document.addEventListener('DOMContentLoaded', fn);
+    }
+}
+window.onload = ready;
+</script>
+
+<div class="content">
+  <h1>Kotlin Collections SQL Group By <aside>Last modified at: &nbsp;&nbsp;July 6, 2018&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/tags/kotlin/">kotlin</a>&nbsp;&nbsp;&nbsp;<a href="/tags/example/">example</a>&nbsp;&nbsp;&nbsp;</aside></h1>
+
+  
+
+<p>In <a href="/java/java-8-stream-sql-group-by">Java 8 Stream SQL Group By</a> we explored how to perform SQL similar group by and aggregation by using Java 8 stream API. This time we&rsquo;re going to do it in Kotlin.</p>
+
+<p>First of all, we use <a href="https://kotlinlang.org/docs/reference/data-classes.html">Kotlin Data Class</a> to implement our <code>Data</code> class. As you can easily tell, it&rsquo;s much shorter than the Java equivalent.</p>
+
+<div class="kotlin-code" 
+    theme="darcula" 
+    data-target-platform="java"
+    
+    data-highlight-only >
+    <pre>
+        <code class="hljs language-kotlin">
+        
+data class Data(val dcId: String, val dbGroup: String, val week: String, var acctVal: Long, var shopVal: Long, var partVal: Long, var backVal: Long) {
+    fun merge(other: Data): Data {
+        this.acctVal += other.acctVal;
+        this.shopVal += other.shopVal;
+        this.partVal += other.partVal;
+        this.backVal += other.backVal;
+        return this;
+    }
+}
+
+        </code>
+    </pre>
+</div>
+
+
+<p>We use the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/list-of.html"><code>listof</code></a> to initialize our test data, which is similar to <code>Arrays.asList</code> Java API.</p>
+
+<p>Our calculation starts from <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/group-by.html"><code>groupBy</code></a> which takes a lambda expression <code>{ it.dcId }</code> as parameter to specify the groupBy key. After that we will get a <code>Map&lt;String, List&lt;Data&gt;&gt;</code>, where the key is <code>dcId</code> and value is a list of <code>Data</code> associated with the key.</p>
+
+<p>Then we use <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/map-values.html"><code>mapValues</code></a> to process the grouped list of <code>Data</code> further. It accepts a transform function. In this function <code>{ it.value.groupBy { it.dbGroup } }</code> we use <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/group-by.html"><code>groupBy</code></a> again to further group data by <code>dbGroup</code>. After that we will get a <code>Map&lt;String, Map&lt;String, List&lt;Data&gt;&gt;&gt;</code>.</p>
+
+<p>We do the same to group data by <code>week</code> further. At this stage we are done with groupBy. We now use <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/reduce.html"><code>reduce</code></a> to aggregation grouped data.</p>
+
+<div class="kotlin-code" 
+    theme="darcula" 
+    data-target-platform="java"
+    
+    data-highlight-only >
+    <pre>
+        <code class="hljs language-kotlin">
+        
+data.groupBy { it.dcId /* it: Data */ }
+    .mapValues { /* it: Map.Entry&lt;String, List&lt;Data&gt;&gt; */
+        it.value.groupBy { it.dbGroup /* it: Data */ }
+                .mapValues { /* it: Map.Entry&lt;String, List&lt;Data&gt;&gt; */
+                    it.value.groupBy { it.week /* it: Data */ }
+                            .mapValues { /* it: Map.Entry&lt;String, List&lt;Data&gt;&gt; */
+                                it.value.reduce(Data::merge)
+                            }
+                }
+    }
+
+        </code>
+    </pre>
+</div>
+
+
+<p>Finally we use <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/flat-map.html"><code>flatMap</code></a> and <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/map.html"><code>map</code></a> to collect the result list.</p>
+
+<div class="kotlin-code" 
+    theme="darcula" 
+    data-target-platform="java"
+    
+    data-highlight-only >
+    <pre>
+        <code class="hljs language-kotlin">
+        
+.flatMap { /* it: Map.Entry&lt;String, Map&lt;String, Map&lt;String, Data&gt;&gt;&gt; */
+    it.value.flatMap { /* it: Map.Entry&lt;String, Map&lt;String, Data&gt;&gt; */
+                it.value.map { /* it: Map.Entry&lt;String, Data&gt; */
+                            it.value
+                        }
+            }
+}
+
+        </code>
+    </pre>
+</div>
+
+
+<p>Here is the full source:
+<div class="kotlin-code" 
+    theme="darcula" 
+    data-target-platform="java"
+    
+     >
+    <pre>
+        <code class="hljs language-kotlin">
+        
+data class Data(val dcId: String, val dbGroup: String, val week: String, var acctVal: Long, var shopVal: Long, var partVal: Long, var backVal: Long) {
+    fun merge(other: Data): Data {
+        this.acctVal += other.acctVal;
+        this.shopVal += other.shopVal;
+        this.partVal += other.partVal;
+        this.backVal += other.backVal;
+        return this;
+    }
+}
+
+fun main(args: Array&lt;String&gt;) {
+    val data = listOf(
+            Data(&#34;dc000&#34;, &#34;dbGroup01&#34;, &#34;week1&#34;, 111L, 211L, 311L, 411L),
+            Data(&#34;dc000&#34;, &#34;dbGroup02&#34;, &#34;week1&#34;, 121L, 221L, 321L, 421L),
+            Data(&#34;dc000&#34;, &#34;dbGroup01&#34;, &#34;week1&#34;, 131L, 231L, 331L, 431L),
+            Data(&#34;dc000&#34;, &#34;dbGroup02&#34;, &#34;week1&#34;, 141L, 241L, 341L, 441L),
+            Data(&#34;dc000&#34;, &#34;dbGroup01&#34;, &#34;week2&#34;, 112L, 212L, 312L, 412L),
+            Data(&#34;dc000&#34;, &#34;dbGroup02&#34;, &#34;week2&#34;, 122L, 222L, 322L, 422L),
+            Data(&#34;dc000&#34;, &#34;dbGroup01&#34;, &#34;week2&#34;, 132L, 232L, 332L, 432L),
+            Data(&#34;dc000&#34;, &#34;dbGroup02&#34;, &#34;week2&#34;, 142L, 242L, 342L, 442L),
+            Data(&#34;dc001&#34;, &#34;dbGroup01&#34;, &#34;week1&#34;, 111L, 211L, 311L, 411L),
+            Data(&#34;dc001&#34;, &#34;dbGroup02&#34;, &#34;week1&#34;, 121L, 221L, 321L, 421L),
+            Data(&#34;dc001&#34;, &#34;dbGroup01&#34;, &#34;week1&#34;, 131L, 231L, 331L, 431L),
+            Data(&#34;dc001&#34;, &#34;dbGroup02&#34;, &#34;week1&#34;, 141L, 241L, 341L, 441L),
+            Data(&#34;dc001&#34;, &#34;dbGroup01&#34;, &#34;week2&#34;, 112L, 212L, 312L, 412L),
+            Data(&#34;dc001&#34;, &#34;dbGroup02&#34;, &#34;week2&#34;, 122L, 222L, 322L, 422L),
+            Data(&#34;dc001&#34;, &#34;dbGroup01&#34;, &#34;week2&#34;, 132L, 232L, 332L, 432L),
+            Data(&#34;dc001&#34;, &#34;dbGroup02&#34;, &#34;week2&#34;, 142L, 242L, 342L, 442L)
+    )
+
+    println(&#34;Before merge:&#34;)
+    data.forEach { println(it) }
+    val mergedData /* : List&lt;Data&gt; */ = data.groupBy { it.dcId /* it: Data */ }
+            .mapValues { /* it: Map.Entry&lt;String, List&lt;Data&gt;&gt; */
+                it.value.groupBy { it.dbGroup /* it: Data */ }
+                        .mapValues { /* it: Map.Entry&lt;String, List&lt;Data&gt;&gt; */
+                            it.value.groupBy { it.week /* it: Data */ }
+                                    .mapValues { /* it: Map.Entry&lt;String, List&lt;Data&gt;&gt; */
+                                        it.value.reduce(Data::merge)
+                                    }
+                        }
+            }
+            .flatMap { /* it: Map.Entry&lt;String, Map&lt;String, Map&lt;String, Data&gt;&gt;&gt; */
+                it.value.flatMap { /* it: Map.Entry&lt;String, Map&lt;String, Data&gt;&gt; */
+                            it.value.map { /* it: Map.Entry&lt;String, Data&gt; */
+                                        it.value
+                                    }
+                        }
+            }
+    println(&#34;After merge:&#34;)
+    mergedData.forEach { println(it) }
+}
+
+        </code>
+    </pre>
+</div>
+</p>
+
+<h2 id="reference">Reference:</h2>
+
+<ul>
+<li>1. <a href="https://kotlinlang.org/docs/reference/data-classes.html">Kotlin Data Class</a></li>
+<li>2. <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/index.html">Kotlin Collections</a></li>
+</ul>
+
+</div>
+
+
+
+
+<footer>
+	<p>© 2018, all rights reserved.</a>
+</footer>
+
+</body>
+</html>
+

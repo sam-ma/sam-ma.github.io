@@ -6,10 +6,147 @@
     <description>Recent content on Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 06 Jul 2018 20:51:46 +1000</lastBuildDate>
+    <lastBuildDate>Sat, 07 Jul 2018 13:40:47 +1000</lastBuildDate>
     
         <atom:link href="https://www.shenyan.me/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Java 8 forEach With Index</title>
+      <link>https://www.shenyan.me/java/java-8-foreach-with-index/</link>
+      <pubDate>Sat, 07 Jul 2018 13:40:47 +1000</pubDate>
+      
+      <guid>https://www.shenyan.me/java/java-8-foreach-with-index/</guid>
+      <description>
+
+&lt;p&gt;Say you have a &lt;code&gt;List&lt;/code&gt; of &lt;code&gt;Item&lt;/code&gt;. You use the Java 8 API &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html#forEach-java.util.function.Consumer-&#34;&gt;&lt;code&gt;forEach&lt;/code&gt;&lt;/a&gt; to iterate over the list and print the items.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;List&amp;lt;Item&amp;gt; items = ...
+items.forEach(System.out::println);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Output:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Item{name=&#39;apple&#39;, quantity=6}
+Item{name=&#39;orange&#39;, quantity=12}
+Item{name=&#39;kiwi&#39;, quantity=8}
+Item{name=&#39;banana&#39;, quantity=4}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now you would like to print the items along &lt;span style=&#34;color:blue&#34;&gt;with the index&lt;/span&gt;. Apparently &lt;code&gt;forEach&lt;/code&gt; doesn&amp;rsquo;t provide index.&lt;/p&gt;
+
+&lt;p&gt;One trick is to use &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/api/java/util/stream/IntStream.html#range-int-int-&#34;&gt;&lt;code&gt;IntStream.range&lt;/code&gt;&lt;/a&gt; as shown below.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;IntStream.range(0, items.size())
+                .forEach(i -&amp;gt; System.out.println(String.format(&amp;quot; %d -&amp;gt; %s&amp;quot;, i+1, items.get(i))));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Output:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; 1 -&amp;gt; Item{name=&#39;apple&#39;, quantity=6}
+ 2 -&amp;gt; Item{name=&#39;orange&#39;, quantity=12}
+ 3 -&amp;gt; Item{name=&#39;kiwi&#39;, quantity=8}
+ 4 -&amp;gt; Item{name=&#39;banana&#39;, quantity=4}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;span style=&#34;color:blue&#34;&gt;Another way is to use the plain old for loop which will always work in this case :)&lt;/span&gt;
+
+&lt;pre&gt;&lt;code&gt;for (int i = 0; i &amp;lt; items.size(); i++)
+            System.out.println(String.format(&amp;quot; %d -&amp;gt; %s&amp;quot;, i+1, items.get(i)));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here is the full source:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;package example;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+public class ForeachTest {
+    public static void main(String[] args) {
+        List&amp;lt;Item&amp;gt; items = Arrays.asList(
+                new Item(&amp;quot;apple&amp;quot;, 6),
+                new Item(&amp;quot;orange&amp;quot;, 12),
+                new Item(&amp;quot;kiwi&amp;quot;, 8),
+                new Item(&amp;quot;banana&amp;quot;, 4)
+        );
+
+        items.forEach(System.out::println);
+
+        System.out.println(&amp;quot;forEach: &amp;quot;);
+        IntStream.range(0, items.size())
+                .forEach(i -&amp;gt; System.out.println(String.format(&amp;quot; %d -&amp;gt; %s&amp;quot;, i+1, items.get(i))));
+
+        System.out.println(&amp;quot;plain old for loop: &amp;quot;);
+        for (int i = 0; i &amp;lt; items.size(); i++)
+            System.out.println(String.format(&amp;quot; %d -&amp;gt; %s&amp;quot;, i+1, items.get(i)));
+
+    }
+
+    public static class Item {
+        private String name;
+        private int quantity;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getQuantity() {
+            return quantity;
+        }
+
+        public void setQuantity(int quantity) {
+            this.quantity = quantity;
+        }
+
+        public Item(String name, int quantity) {
+            this.name = name;
+            this.quantity = quantity;
+        }
+
+        @Override
+        public String toString() {
+            return &amp;quot;Item{&amp;quot; +
+                    &amp;quot;name=&#39;&amp;quot; + name + &#39;\&#39;&#39; +
+                    &amp;quot;, quantity=&amp;quot; + quantity +
+                    &#39;}&#39;;
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Output:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Item{name=&#39;apple&#39;, quantity=6}
+Item{name=&#39;orange&#39;, quantity=12}
+Item{name=&#39;kiwi&#39;, quantity=8}
+Item{name=&#39;banana&#39;, quantity=4}
+forEach: 
+ 1 -&amp;gt; Item{name=&#39;apple&#39;, quantity=6}
+ 2 -&amp;gt; Item{name=&#39;orange&#39;, quantity=12}
+ 3 -&amp;gt; Item{name=&#39;kiwi&#39;, quantity=8}
+ 4 -&amp;gt; Item{name=&#39;banana&#39;, quantity=4}
+plain old for loop: 
+ 1 -&amp;gt; Item{name=&#39;apple&#39;, quantity=6}
+ 2 -&amp;gt; Item{name=&#39;orange&#39;, quantity=12}
+ 3 -&amp;gt; Item{name=&#39;kiwi&#39;, quantity=8}
+ 4 -&amp;gt; Item{name=&#39;banana&#39;, quantity=4}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;reference&#34;&gt;Reference:&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;1. &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html&#34;&gt;Iterable&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;2. &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/api/java/util/stream/IntStream.html&#34;&gt;IntStream&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>Kotlin Collections SQL Group By</title>
@@ -289,7 +426,18 @@ public class SetToMapTest {
         }
     }
 }
+&lt;/code&gt;&lt;/pre&gt;
 
+&lt;p&gt;Output:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[Student{id=&#39;02&#39;, first=&#39;John&#39;, last=&#39;Hay&#39;}
+, Student{id=&#39;03&#39;, first=&#39;Matt&#39;, last=&#39;Simpson&#39;}
+, Student{id=&#39;01&#39;, first=&#39;Dick&#39;, last=&#39;Smith&#39;}
+]
+{01=Student{id=&#39;01&#39;, first=&#39;Dick&#39;, last=&#39;Smith&#39;}
+, 02=Student{id=&#39;02&#39;, first=&#39;John&#39;, last=&#39;Hay&#39;}
+, 03=Student{id=&#39;03&#39;, first=&#39;Matt&#39;, last=&#39;Simpson&#39;}
+}
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2 id=&#34;reference&#34;&gt;Reference:&lt;/h2&gt;

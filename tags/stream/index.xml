@@ -123,7 +123,18 @@ public class SetToMapTest {
         }
     }
 }
+&lt;/code&gt;&lt;/pre&gt;
 
+&lt;p&gt;Output:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[Student{id=&#39;02&#39;, first=&#39;John&#39;, last=&#39;Hay&#39;}
+, Student{id=&#39;03&#39;, first=&#39;Matt&#39;, last=&#39;Simpson&#39;}
+, Student{id=&#39;01&#39;, first=&#39;Dick&#39;, last=&#39;Smith&#39;}
+]
+{01=Student{id=&#39;01&#39;, first=&#39;Dick&#39;, last=&#39;Smith&#39;}
+, 02=Student{id=&#39;02&#39;, first=&#39;John&#39;, last=&#39;Hay&#39;}
+, 03=Student{id=&#39;03&#39;, first=&#39;Matt&#39;, last=&#39;Simpson&#39;}
+}
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2 id=&#34;reference&#34;&gt;Reference:&lt;/h2&gt;

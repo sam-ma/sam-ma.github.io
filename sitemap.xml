@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://www.shenyan.me/kotlin/chrome-extension-by-kotlin-js/</loc>
+    <lastmod>2018-07-08T13:26:34+10:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://www.shenyan.me/java/java-8-foreach-with-index/</loc>
     <lastmod>2018-07-07T13:40:47+10:00</lastmod>
   </url>
@@ -69,13 +74,13 @@
   
   <url>
     <loc>https://www.shenyan.me/tags/example/</loc>
-    <lastmod>2018-07-07T13:40:47+10:00</lastmod>
+    <lastmod>2018-07-08T13:26:34+10:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://www.shenyan.me/</loc>
-    <lastmod>2018-07-07T13:40:47+10:00</lastmod>
+    <lastmod>2018-07-08T13:26:34+10:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -111,13 +116,19 @@
   
   <url>
     <loc>https://www.shenyan.me/tags/kotlin/</loc>
-    <lastmod>2018-07-06T20:51:46+10:00</lastmod>
+    <lastmod>2018-07-08T13:26:34+10:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.shenyan.me/tags/kotlin-js/</loc>
+    <lastmod>2018-07-08T13:26:34+10:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://www.shenyan.me/kotlin/</loc>
-    <lastmod>2018-07-06T20:51:46+10:00</lastmod>
+    <lastmod>2018-07-08T13:26:34+10:00</lastmod>
     <priority>0</priority>
   </url>
   

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>Chrome Extension by Kotlin Js</title>
+	
+	<meta name="description" content="">
+	<meta name="image" content="">
+	
+	<meta itemprop="name" content="Chrome Extension by Kotlin Js">
+	<meta itemprop="description" content="">
+	<meta itemprop="image" content="">
+	
+	<meta name="og:title" content="Chrome Extension by Kotlin Js">
+	<meta name="og:description" content="">
+	
+	<meta name="og:url" content="https://www.shenyan.me/kotlin/chrome-extension-by-kotlin-js/">
+	<meta name="og:site_name" content="Chrome Extension by Kotlin Js">
+	<meta name="og:type" content="article">
+	
+	<meta name="article:tag" content="kotlin kotlin-js example ">
+	<link rel="stylesheet" type="text/css" href="https://www.shenyan.me/css/style.css">
+	<link rel="stylesheet" type="text/css" href="https://www.shenyan.me/css/rust.css">
+	
+	
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-120740855-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+	
+	
+
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/kotlin.min.js"></script>
+	
+	<script src="https://unpkg.com/kotlin-playground@1" data-selector=".kotlin-code"></script>
+	
+
+	
+	<script>hljs.initHighlightingOnLoad();</script>
+	
+
+	
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<script>
+	(adsbygoogle = window.adsbygoogle || []).push({
+		google_ad_client: "ca-pub-4978414475046912",
+		enable_page_level_ads: true
+	});
+	</script>
+</head>
+
+<body class="light">
+
+<header>
+	
+	<a href="https://www.shenyan.me/" style="float: left;color:#777;"><strong>Home</strong></a>
+	
+	&nbsp;&nbsp;<a href="https://www.shenyan.me/archives/" style="color:#777;"><strong>Archives</strong></a>&nbsp;&nbsp;
+	
+	
+	
+	<a href="https://www.shenyan.me/index.xml" style="color:#777;float: right;"><strong><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></strong></a>
+</header>
+
+
+<div id="loadingMask" style="width: 100%; height: 100%; position: fixed; background: #fff;"></div>
+<script>
+function fadeOut(el) {
+  el.style.opacity = 1;
+
+  var last = +new Date();
+  var tick = function() {
+    el.style.opacity = +el.style.opacity - (new Date() - last) / 80;
+    last = +new Date();
+    
+
+    if (el.style.opacity > 0) {
+      (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+    } else {
+      el.style.display='none';
+    }
+  };
+
+  tick();
+}
+
+function ready(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+         el = document.getElementById('loadingMask');
+         fadeOut(el);
+        var elements = document.querySelectorAll("img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("alt")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("alt"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+
+    } else {
+        document.addEventListener('DOMContentLoaded', fn);
+    }
+}
+window.onload = ready;
+</script>
+
+<div class="content">
+  <h1>Chrome Extension by Kotlin Js <aside>Last modified at: &nbsp;&nbsp;July 8, 2018&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/tags/kotlin/">kotlin</a>&nbsp;&nbsp;&nbsp;<a href="/tags/kotlin-js/">kotlin-js</a>&nbsp;&nbsp;&nbsp;<a href="/tags/example/">example</a>&nbsp;&nbsp;&nbsp;</aside></h1>
+
+  
+
+<p>This post is about the <a href="https://github.com/sam-ma/uniqlo-cn-chrome-ext">Uniqlo CN Chrome Extension</a> which I created just for fun :)
+Different parts of the code are described by the following four posts.</p>
+
+<hr />
+
+<ul>
+<li>1. <a href="#">Common</a> (Coming soon)<!--(../chrome-extension-by-kotlin-js-common) --></li>
+<li>2. <a href="#">Content</a> (Coming soon)<!--(../chrome-extension-by-kotlin-js-content) --></li>
+<li>3. <a href="#">Background</a> (Coming soon)<!--(../chrome-extension-by-kotlin-js-background) --></li>
+<li>4. <a href="#">Wrap-up</a> (Coming soon)<!--(../chrome-extension-by-kotlin-js-wrap-up) --></li>
+</ul>
+
+<hr />
+
+<h2 id="build">Build</h2>
+
+<ul>
+<li>1. Clone or download source code from <span style="color:#0366d6"><a href="https://github.com/sam-ma/uniqlo-cn-chrome-ext">github</a></span></li>
+<li>2. Go to the folder which contains the source code and run <code>./gradlew clean build</code>. A <code>dist</code> folder will be created after the build.</li>
+</ul>
+
+<h2 id="install">Install</h2>
+
+<ul>
+<li>1. Click <code>Window</code> -&gt; <code>Extensions</code> or type <code>chrome://extensions/</code> to open the <code>Extensions</code> window</li>
+<li>2. Turn on <code>Developer mode</code> of chrome</li>
+<li>3. Click <code>Load unpacked</code> button and select the <code>dist</code> folder of this project</li>
+</ul>
+
+<h2 id="what-it-does">What it does</h2>
+
+<ul>
+<li>1. Open any of the item of Uniqlo CN site. e.g. <a href="http://www.uniqlo.cn/item.htm?spm=0.0.0.0.7Ns7k9&amp;id=568194806286&amp;frm=&amp;">this one</a>
+<img src="img/ScreenShot1.png" alt="" title="ScreenShot 1" /></li>
+<li>2. Click the extension button with Uniqlo logo located at the top right corner.
+<img src="img/ScreenShot2.png" alt="" title="ScreenShot 2" /></li>
+<li>3. It will add the converted price and the link of the same item of Australian site in the page.
+<img src="img/ScreenShot3.png" alt="" title="ScreenShot 3" /></li>
+</ul>
+
+<h2 id="reference">Reference:</h2>
+
+<ul>
+<li>1. <a href="https://developer.chrome.com/extensions/getstarted">Chrome Extension Get Started Tutorial</a></li>
+<li>2. <a href="https://robots.thoughtbot.com/how-to-make-a-chrome-extension">How to Make a Chrome Extension</a></li>
+<li>3. <a href="https://github.com/Kotlin/kotlin-fullstack-sample">Kotlin Fullstack Sample</a></li>
+<li>4. <a href="https://kotlinlang.org/docs/tutorials/javascript/working-with-javascript.html">Working with Javascript</a></li>
+<li>5. <a href="https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/chrome/index.d.ts">index.d.ts</a></li>
+<li>6. <a href="https://stackoverflow.com/questions/43871637/no-access-control-allow-origin-header-is-present-on-the-requested-resource-whe">Stackoverflow</a></li>
+<li>7. <a href="https://exchangeratesapi.io/api/latest">Foreign Exchange Rates API</a></li>
+</ul>
+
+</div>
+
+
+
+
+<footer>
+	<p>© 2018, all rights reserved.</a>
+</footer>
+
+</body>
+</html>
+

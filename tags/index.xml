@@ -23,7 +23,7 @@
     <item>
       <title>Example</title>
       <link>https://www.shenyan.me/tags/example/</link>
-      <pubDate>Sat, 07 Jul 2018 13:40:47 +1000</pubDate>
+      <pubDate>Sun, 08 Jul 2018 13:26:34 +1000</pubDate>
       
       <guid>https://www.shenyan.me/tags/example/</guid>
       <description></description>
@@ -59,9 +59,18 @@
     <item>
       <title>Kotlin</title>
       <link>https://www.shenyan.me/tags/kotlin/</link>
-      <pubDate>Fri, 06 Jul 2018 20:51:46 +1000</pubDate>
+      <pubDate>Sun, 08 Jul 2018 13:26:34 +1000</pubDate>
       
       <guid>https://www.shenyan.me/tags/kotlin/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Kotlin Js</title>
+      <link>https://www.shenyan.me/tags/kotlin-js/</link>
+      <pubDate>Sun, 08 Jul 2018 13:26:34 +1000</pubDate>
+      
+      <guid>https://www.shenyan.me/tags/kotlin-js/</guid>
       <description></description>
     </item>
     

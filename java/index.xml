@@ -33,7 +33,7 @@ Item{name=&#39;kiwi&#39;, quantity=8}
 Item{name=&#39;banana&#39;, quantity=4}
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Now you would like to print the items along &lt;span style=&#34;color:blue&#34;&gt;with the index&lt;/span&gt;. Apparently &lt;code&gt;forEach&lt;/code&gt; doesn&amp;rsquo;t provide index.&lt;/p&gt;
+&lt;p&gt;Now you would like to print the items along &lt;span style=&#34;color:#0366d6&#34;&gt;with the index&lt;/span&gt;. Apparently &lt;code&gt;forEach&lt;/code&gt; doesn&amp;rsquo;t provide index.&lt;/p&gt;
 
 &lt;p&gt;One trick is to use &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/api/java/util/stream/IntStream.html#range-int-int-&#34;&gt;&lt;code&gt;IntStream.range&lt;/code&gt;&lt;/a&gt; as shown below.&lt;/p&gt;
 
@@ -49,7 +49,7 @@ Item{name=&#39;banana&#39;, quantity=4}
  4 -&amp;gt; Item{name=&#39;banana&#39;, quantity=4}
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;span style=&#34;color:blue&#34;&gt;Another way is to use the plain old for loop which will always work in this case :)&lt;/span&gt;
+&lt;span style=&#34;color:#0366d6&#34;&gt;Another way is to use the plain old for loop which will always work in this case :)&lt;/span&gt;
 
 &lt;pre&gt;&lt;code&gt;for (int i = 0; i &amp;lt; items.size(); i++)
             System.out.println(String.format(&amp;quot; %d -&amp;gt; %s&amp;quot;, i+1, items.get(i)));

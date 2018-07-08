@@ -140,7 +140,7 @@ Item{name='kiwi', quantity=8}
 Item{name='banana', quantity=4}
 </code></pre>
 
-<p>Now you would like to print the items along <span style="color:blue">with the index</span>. Apparently <code>forEach</code> doesn&rsquo;t provide index.</p>
+<p>Now you would like to print the items along <span style="color:#0366d6">with the index</span>. Apparently <code>forEach</code> doesn&rsquo;t provide index.</p>
 
 <p>One trick is to use <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/IntStream.html#range-int-int-"><code>IntStream.range</code></a> as shown below.</p>
 
@@ -156,7 +156,7 @@ Item{name='banana', quantity=4}
  4 -&gt; Item{name='banana', quantity=4}
 </code></pre>
 
-<span style="color:blue">Another way is to use the plain old for loop which will always work in this case :)</span>
+<span style="color:#0366d6">Another way is to use the plain old for loop which will always work in this case :)</span>
 
 <pre><code>for (int i = 0; i &lt; items.size(); i++)
             System.out.println(String.format(&quot; %d -&gt; %s&quot;, i+1, items.get(i)));
